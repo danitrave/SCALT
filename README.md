@@ -10,4 +10,4 @@ As mentioned in the paper, SCALT is composed of other parallel utilities that al
 
 
 ## SCALT manual
-The manual of SCALT is available at [![Documentation Status](https://readthedocs.org/projects/capitalcitiesgame/badge/?version=latest)](https://capitalcitiesgame.readthedocs.io/en/latest/?badge=latest)
+The manual of SCALT is available at [SCALT documentation](https://capitalcitiesgame.readthedocs.io/en/latest/)
