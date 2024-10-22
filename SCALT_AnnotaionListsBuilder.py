@@ -103,7 +103,7 @@ def lists_generator(counts,anno,boo,cells,genes,notation,cpus):
 
     #### Generate the mean propabilities calculated from the probabilities table of the boostrap paradigm ####
     try:
-        os.system("python3 scripts/statistics_calculator.py")
+        os.system("python3 scripts/statistics_calculator.py "+notation)
     except:
         print("Error: cannot run calculate the probabilities tables!")
 
@@ -131,6 +131,13 @@ def lists_generator(counts,anno,boo,cells,genes,notation,cpus):
     except:
         print("Error: cannot run the scripts/customLists_refinement.py")
 
+    #### Check if the custom lists are similar to those available in SCALT using a mutual information strategy ####
+
+    try:
+        os.system("python3 scripts/mutual_information_test.py config/parametersForMIcalculation.json "+notation+" custom")
+    except:
+        print("Error: cannot run scripts/mutual_information_test.py")
+
     #### Group all the files in a directory ####
     try:
         os.system("mkdir ./AnnolistsBuilder_results")
@@ -138,7 +145,7 @@ def lists_generator(counts,anno,boo,cells,genes,notation,cpus):
         pass
 
     try:
-        os.system("mv "+counts+" originalTables_zipped.zip boostraps_samples/ cellTypes_fromAnnotationHeatmap.png genes2remove.tsv genesCellTypes_probabilities.tsv genes_entropy.tsv genesGeneral_probabilities.tsv genesProbabilities_ratios.tsv genesRanking.tsv groupped_cell_types/ TABLE_OF_GENES.tsv "+anno+" AnnolistsBuilder_results/")
+        os.system("mv "+counts+" originalTables_zipped.zip MI_REPORT.txt boostraps_samples/ cellTypes_fromAnnotationHeatmap.png genes2remove.tsv genesCellTypes_probabilities.tsv genes_entropy.tsv genesGeneral_probabilities.tsv genesProbabilities_ratios.tsv genesRanking.tsv groupped_cell_types/ TABLE_OF_GENES.tsv "+anno+" AnnolistsBuilder_results/")
     except:
         print("Error: cannot move intermediate files in the ./AnnolistsBuilder_results directory")
 

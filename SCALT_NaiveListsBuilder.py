@@ -164,6 +164,12 @@ def naive_lists_generator(counts,custom,boo,cells,genes,notation,cpus):
     except:
         print("Error: cannot run the scripts/customLists_refinement.py")
 
+    #### Check if the custom lists are similar to those available in SCALT using a mutual information strategy ####
+    try:
+        os.system("python3 scripts/mutual_information_test.py config/parametersForMIcalculation.json "+notation+" naive")
+    except:
+        print("Error: cannot run scripts/mutual_information_test.py")
+
     #### Group all the files in a directory ####
     try:
         os.system("mkdir ./NaivelistsBuilder_results")
@@ -171,7 +177,7 @@ def naive_lists_generator(counts,custom,boo,cells,genes,notation,cpus):
         pass
 
     try:
-        os.system("mv originalTables_zipped.zip user_lists/ "+counts.split(".tsv")[0]+"_naive_annotation.tsv "+counts.split(".tsv")[0]+"_FDR_table.tsv boostraps_samples/ cellTypes_fromNaiveHeatmap.png genes2remove.tsv genesCellTypes_probabilities.tsv genes_entropy.tsv genesGeneral_probabilities.tsv genesProbabilities_ratios.tsv genesRanking.tsv groupped_cell_types/ TABLE_OF_GENES.tsv NaivelistsBuilder_results/")
+        os.system("mv MI_REPORT.txt originalTables_zipped.zip user_lists/ "+counts.split(".tsv")[0]+"_naive_annotation.tsv "+counts.split(".tsv")[0]+"_FDR_table.tsv boostraps_samples/ cellTypes_fromNaiveHeatmap.png genes2remove.tsv genesCellTypes_probabilities.tsv genes_entropy.tsv genesGeneral_probabilities.tsv genesProbabilities_ratios.tsv genesRanking.tsv groupped_cell_types/ TABLE_OF_GENES.tsv NaivelistsBuilder_results/")
     except:
         print("Error: cannot move intermediate files in the ./NaivelistsBuilder_results")
 

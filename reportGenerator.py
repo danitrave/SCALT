@@ -30,7 +30,7 @@ start_time = datetime.now()
 def significance_validator(R):
     L = []
     for j in R:
-        if j[1] < 1.0:     #p-value significance validation
+        if j[1] < 0.05:     #p-value significance validation
             L += [j,]
     return L
 
@@ -80,7 +80,7 @@ def cellTypes_barplot(T1,F1):
                 continue
             zipped = list(zip(COLS,alt))
             sortedZipped = sorted(zipped,key=itemgetter(1),reverse=False)  #sort annotations by p-values in increasing order
-            upperSortedZipped = [(e[0].replace("_",".").replace(" ",".").replace("-","."),e[1]) for e in sortedZipped]
+            upperSortedZipped = [(e[0].replace("_",".").replace(" ","."),e[1]) for e in sortedZipped]
             retain_significant = significance_validator(upperSortedZipped)       #collect only significant annotations
             retain_significant_annotation = [k[0] for k in retain_significant]
             annotation+=[retain_significant_annotation[0].replace("."," "),]
@@ -116,16 +116,32 @@ def umapPlot(t,a,note,color_dict,M):
     anno.columns=["CELL_ANNOTATION"]
     uniqueAnno = list(anno["CELL_ANNOTATION"].unique())
     color = [color_dict[f] for f in list(anno["CELL_ANNOTATION"])]   #assing each cell to the corresponding color based on the annotation outcome
+    
+    #### consider only the genes extracted from the cell types that have at leat 50 cells annototated ####
+    occurencesCounting = {}
+    for o in list(anno["CELL_ANNOTATION"]):
+        if o not in occurencesCounting:
+            occurencesCounting[o]=1
+        else:
+            occurencesCounting[o]+=1
+    cell_typesForUMAP = []
+    for k in occurencesCounting:
+        if occurencesCounting[k] >= 50:
+            cell_typesForUMAP+=[k.replace(" ",".").lower().capitalize()+".tsv",]
     genes = []
     cells = os.listdir(M+"/")     #genes to consider to the umap creation
     for c in cells:
-        table = pd.read_csv(M+"/"+c,sep="\t",header=0,index_col=None)
-        g = list(table[note])
-        for i in g:
-            if i not in genes:    #union (without replacement) of the genes from the lists used for the likelihood-based classification
-                genes += [i,]
-            else:
-                continue
+        if c in cell_typesForUMAP:
+            table = pd.read_csv(M+"/"+c,sep="\t",header=0,index_col=None)
+            g = list(table[note])
+            for i in g:
+                if i not in genes:    #union (without replacement) of the genes from the lists used for the likelihood-based classification
+                    genes += [i,]
+                else:
+                    continue
+        else:
+            continue
+
     filtDF = df.loc[genes,:].T 
     umap_2d = UMAP(n_components=2)     #calculate 2D UMAP coordinates 
     results_data = filtDF.values

@@ -25,8 +25,11 @@ start_time = datetime.now()
     classification based on a likelihood ratio method. The function requires the following inputs: the raw data counts table; the minimum number of genes that a
     cell must presnt to be classifed; the kind of gene notation used; the cell types used in the annotation process; the number of processors used. """
 
-def application_run(counts,gene_threshold,notation,dirCellTypes,cpus):
-	
+def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity):
+    #### Set the level of granilarity of the cell type specific lists of genes ####
+    if granularity == "low":
+        dirCellTypes = "low_granularity_cell_types"
+
     #### Pre-process the input such to be suitable for the application run ####
     if counts.endswith("_adj.tsv"):
         name_counts = counts.split("_adj.tsv")[0]     #if the user is generating custum cell-type lists from either annotation or external lists, there is no need of addional adjustment 
@@ -78,9 +81,10 @@ parser.add_argument('-Min',metavar='--Threshold',default="250",help="Minimum num
 parser.add_argument("-Notation",metavar="--Notation",default="ensembl_id",help='Type of gene notation to use. The defaul is "ensembl_id". Write "gene_symbol" to switch to gene symbol notation. Note: gene notation must coincide with the one present in the counts table')
 parser.add_argument("-Types",metavar="--Types",default="cell_types",help='Directory name containg the lists of the cell types to be used in the likelihood test. By default, only the pre-compiled lists (DISCO, HPA) are used. If the user wants to use only the custom ones generated from annotation, insert "custom". Finally, if the users wants to use only the custom ones from user-defined lists, insert "naive".')
 parser.add_argument("-CPUs",metavar="--CPUs",default="1",help='Number of processors employed.')
+parser.add_argument("-Granularity",metavar="--Granularity",default="high",help='Level of granularity of the annotation.')
 
 args = vars(parser.parse_args())
-application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"])
+application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"],args["Granularity"])
 
 end_time = datetime.now()
 print('Duration complete tool run: {}'.format(end_time - start_time))
