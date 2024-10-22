@@ -73,6 +73,10 @@ def entropy(t,n):
     for i in indexes:
         curr_entropy = 0			#final entropy
         L = table.loc[i,:]
+        ###if L.shape[0]>1:
+            ###black_list_genes += [i,]
+            ###d[i]=0
+            ###continue
         M_PROB = max(L)
         if M_PROB < 0.10:              #genes for which the max probability is less then 10% must be excluded
             black_list_genes += [i,]

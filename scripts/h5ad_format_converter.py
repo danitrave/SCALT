@@ -47,7 +47,7 @@ if __name__ == "__main__":
     if arg1.split(".")[-1]=="h5ad":    #check if the file has ".h5ad" format 
         h5ad2TSV(arg1)
     else:
-		print('Error: the file is not in the ".h5ad" file.')
+        print('Error: the file is not in the ".h5ad" file.')
 
 end_time = datetime.now()
 print('Transformaton h5ad format to TSV: {}'.format(end_time - start_time))

@@ -30,6 +30,7 @@ def rankedMostExpressed(t,g,pr,HKG):
     result = {}
     header = [o.replace(" ",".").replace("–","-").replace("/","_").replace("(","_").replace(")","_").upper() for o in list(ratios.columns)]   #correct columns
     ratios.columns = header
+    cutoff = 100
     for c in cellTypes:
         currCellMEG_indexes = list(table.loc[:,c])
         ORDERED_GENES_ENS_ID = list(GENES_DF.iloc[currCellMEG_indexes,0])   #get the ordered list of genes from the ranking and the corresponding probability ratio
@@ -37,9 +38,14 @@ def rankedMostExpressed(t,g,pr,HKG):
         cell_name = c+"_mostExpressedGenes.txt" 
         DF = pd.DataFrame.from_dict({"genes":ORDERED_GENES_ENS_ID,"probRatios":prob_ratios_cellType},orient="columns")   #generate the final table for this cell type
         DF.drop(HKG,inplace=True)              #eliminate the genes validated by the program "entropy_calculator.py"
-        selected = DF[DF["probRatios"]>1.0] 
+        selected = DF[DF["probRatios"]>=2.0]    ####VERIFICA CON LISTE CON RATIO >= 2
+        if selected.shape[0] <= cutoff:
+            cutoff = selected.shape[0]
         result[c+"_mostExpressedGenes.txt"]=selected
-    return result
+    resultsAfterCutoff = {}
+    for r in result:
+        resultsAfterCutoff[r]=result[r].head(cutoff)
+    return resultsAfterCutoff
 
 ''' The function cell_type_list_creator(df,N,p) properly generates the cell type specific list of genes derived either from the naive or annotation table.'''
 

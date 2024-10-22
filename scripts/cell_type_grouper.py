@@ -107,11 +107,12 @@ def parallelizer(I):
     if cpus == 1:
         return cellType_grouper(L)      #one CPU
     else:
+        cells = len(I)
         guard = len(L)
         slicer = int(len(L)/cpus)
         slicing = []
         s = 0
-        if len(cells) <= cpus:                #check: the number of cell types is smaller than the CPUs inserted
+        if cells <= cpus:                #check: the number of cell types is smaller than the CPUs inserted
             slicer = 1
         while s < guard:                  #if multiple CPUs are used, slice the input pre-organized such to group a maximum number of cell types defined by the number of precessors at each itaration
             if s+slicer > guard:

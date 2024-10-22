@@ -54,7 +54,7 @@ def countsRefinement(readCounts,nota,mode,kct):
     pruned = open(nameCounts+"_adj.tsv","w")    #new file
     pruned.write(header+"\n")
     if mode == "likelihood":            #case one: you are doing the likelihood test using the lists from DISCO and HPA. Adj counts inserting missing genes
-        if kct == "cell_types":
+        if kct == "cell_types" or kct == "low_granularity_cell_types":
             configuration = pd.read_csv("config/GRCh38.109_ensembID_geneSymbol.tsv",sep="\t",header=0,index_col=0)  #gene configuration file
             genes2validate = list(configuration[nota])        #genes to preserve in the counts 
             for gene in genes2validate:
@@ -86,7 +86,19 @@ def countsRefinement(readCounts,nota,mode,kct):
                 pruned.write(line+"\n")
             pruned.close()
             return readCounts
-    elif mode == "anno":          #"anno" mode
+    elif mode == "anno":          
+        ###configuration = pd.read_csv("config/GRCh38.109_ensembID_geneSymbol.tsv",sep="\t",header=0,index_col=0)  #gene configuration file
+        ###genes2validate = list(configuration[nota])        #genes to preserve in the counts 
+        ###for gene in genes2validate:
+            ###if gene in tsv:
+                ###line = "\t".join([gene]+tsv[gene])    #if the original counts present the gene, write the counts
+                ###pruned.write(line+"\n")
+            ###else:
+                ###zeros = ["0"]*len(header.split("\t")[1:])   #else, write a collection of zeros 
+                ###line = "\t".join([gene]+zeros)
+                ###pruned.write(line+"\n")
+        ###pruned.close()
+        ####return readCounts
         for gene in tsv:
             line = "\t".join([gene]+tsv[gene])  
             pruned.write(line+"\n")

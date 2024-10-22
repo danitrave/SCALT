@@ -25,6 +25,7 @@ def RATIO_PROBABILITY_MATRIX_CREATION(single,general):   #cell type probabilitie
         DIV = single.loc[:,ct].div(general["probs"],axis=0,fill_value=float(0))  #P(G|CT)/P(G) 
         single[ct]=DIV
     single = single.fillna(float(0))
+    single = single.replace([np.inf, -np.inf], 0)
     single.to_csv("probabilities_ratio_matrix.tsv",sep="\t",index=True,header=True)
 
 """ The function cellTypeSpecificExpressionProbabilities(counts,annotation,genes) is responsible of calcating the probability of a gene
@@ -93,6 +94,10 @@ if __name__ == "__main__":
     T = pd.read_csv(t,sep="\t",header=0,index_col=0)
     ANNO = pd.read_csv(a,sep="\t",header=0,index_col=False)
     general = generalExpressionProbabilies(t)                   #expression of a gene in a cell in general
+    ###read_general = pd.read_csv("config/background_probs.tsv",sep="\t",header=0,index_col=0)
+    ###general = pd.DataFrame.from_dict({"probs":list(read_general["probs"])},dtype=float)
+    ###general.index = list(read_general[N])
+    ###general.to_csv("global_probabilities.tsv",sep="\t",index=True,header=True)
     singleCellType = cellTypeSpecificExpressionProbabilities(T,ANNO,G)     #expression of a cell in a cell type
     RATIO_PROBABILITY_MATRIX_CREATION(singleCellType,general)           #ratio of probiblities (expressed|cell/expressed in general)
 
