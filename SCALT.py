@@ -25,7 +25,7 @@ start_time = datetime.now()
     classification based on a likelihood ratio method. The function requires the following inputs: the raw data counts table; the minimum number of genes that a
     cell must presnt to be classifed; the kind of gene notation used; the cell types used in the annotation process; the number of processors used. """
 
-def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity):
+def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity,lik_threshold):
     #### Set the level of granilarity of the cell type specific lists of genes ####
     if granularity == "low":
         dirCellTypes = "low_granularity_cell_types"
@@ -52,7 +52,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity
     #### Generate the final report ####
     
     try:
-        os.system("python3 reportGenerator.py p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes)
+        os.system("python3 reportGenerator.py p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes+" deltas.tsv "+lik_threshold)
     except:
         print("Error: the report could not be generated!")
 
@@ -64,7 +64,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity
         print("Error: could not generate the directory ./results_directory")
     
     try:
-        os.system("mv barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" results_directory/")
+        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" results_directory/")
     except:
         print("Error: cannot move the files in the final results_directory/")
 
@@ -82,9 +82,10 @@ parser.add_argument("-Notation",metavar="--Notation",default="ensembl_id",help='
 parser.add_argument("-Types",metavar="--Types",default="cell_types",help='Directory name containg the lists of the cell types to be used in the likelihood test. By default, only the pre-compiled lists (DISCO, HPA) are used. If the user wants to use only the custom ones generated from annotation, insert "custom". Finally, if the users wants to use only the custom ones from user-defined lists, insert "naive".')
 parser.add_argument("-CPUs",metavar="--CPUs",default="1",help='Number of processors employed.')
 parser.add_argument("-Granularity",metavar="--Granularity",default="high",help='Level of granularity of the annotation.')
+parser.add_argument("-Diff",metavar="--Diff",default="6.03",help='Likelihood difference (Absolute value) that the first and second most significant annotations must have to ununbiguously assign a cell. Wherever the threshold is not respected, the cell will be classified as "Multiassigned". The default value if 6.03 that corresponds to p-value significance of 0.05. The higher the value, the significance stringency increases.')
 
 args = vars(parser.parse_args())
-application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"],args["Granularity"])
+application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"],args["Granularity"],args["Diff"])
 
 end_time = datetime.now()
 print('Duration complete tool run: {}'.format(end_time - start_time))

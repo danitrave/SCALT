@@ -23,6 +23,16 @@ sns.set(style='white', context='notebook', rc={'figure.figsize':(14,10)})
 
 start_time = datetime.now()
 
+''' The function uncertainty_validator(ds,t) verifies wherever the most likely annotation is significantly categorizing the cell with respect to that
+    ranking second in terms of significance. This happens if the first and the second differ for a threshold defined (t) likelihood'''
+
+def uncertainty_validator(ds,t):
+    deltaOfdeltas = abs((ds[0])-(ds[1]))
+    if deltaOfdeltas > t: #9.23:
+        return "unbiased"
+    else:
+        return "uncertain"
+
 ''' 'The function significance_validator(R) is used to collect the annotations that resulted significant after likelihood-ratio test. The function takes a list as input.
      The latter presents a series of tuples reporting the annotation as first element and the corresponding p-value from the likelihood-ratio test as second. Only those
      cell types having p-value lower than 1 are collected.'''
@@ -57,33 +67,85 @@ def filter_barPlot(f):
     fig.write_html("barplot_survivedCells.html")        #save as an html file 
     return fig
 
-""" The function cellTypes_barplot(T1,F1) generates a barplot reporting the number of cell types identified per each cell type class."""
+""" The function cellTypes_barplot(T1,F1,DELTAS,THRESH) generates a barplot reporting the number of cell types identified per each cell type class."""
 
-def cellTypes_barplot(T1,F1):
+def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
+    tsv = open(counts_data,"r")
+    stop = 0
+    for line in tsv:
+        if stop == 1:
+            break
+        cells_ids = line.strip("\n").split("\t")[1:]
+        stop = 1
+    tsv.close()
+    #### columns of the table containing results ####
+    primary_label = []
+    multi_label = []
+    alternative_labels = []
+    #################################################
     annotation = []
     df = pd.read_csv(T1,sep="\t",header=0,index_col=0)    #table reporting the p-values from the likelihood-ratio test
     INDEXES = list(df.index)
     COLS = list(df.columns)
+    deltas = pd.read_csv(DELTAS,sep="\t",header=0,index_col=0)  #likelihood difference bewteen avrg type and cell type model
     surv = pd.read_csv(F1,sep="\t",header=0,index_col=0)   #table reporting the PASS-EXCLUDE notation based on the survival or not to the genes-expressed filter
-    cellTypes_counts = {"Unclassified":0}
+    cellTypes_counts = {"Unclassified":0,"Multiassigned":0}
     for i in range(len(INDEXES)):
         if surv.iloc[i,0]=="EXCLUDE":              #cells not passing the genes-expressed filer are annotated as "unclassified"
             cellTypes_counts["Unclassified"]+=1
             annotation+=["Unclassified",]
+            
+            primary_label+=["Unclassified",]
+            multi_label+=["NA",]
+            alternative_labels+=["NA",]
             continue
         else:
             alt = list(df.iloc[i,:])
             minimum = min(alt)
+            deltas_cell = sorted(list(deltas.iloc[i,:]))
             if minimum > 0.05:
                 cellTypes_counts["Unclassified"]+=1     #cells having the lowest p-value greater than 0.05 are annotated as "unclassified"
                 annotation+=["Unclassified",]
+                
+                primary_label+=["Unclassified",]
+                multi_label+=["NA",]
+                alternative_labels+=["NA",]
                 continue
+
+            uncertainty = uncertainty_validator(deltas_cell,THRESH)   #cells which potentially have multiple plausible (significant)--> Multiassigned 
+            #if uncertainty == "uncertain":
+                #cellTypes_counts["Multiassigned"]+=1
+                #annotation+=["Multiassigned",]
+                #continue
             zipped = list(zip(COLS,alt))
             sortedZipped = sorted(zipped,key=itemgetter(1),reverse=False)  #sort annotations by p-values in increasing order
             upperSortedZipped = [(e[0].replace("_",".").replace(" ","."),e[1]) for e in sortedZipped]
             retain_significant = significance_validator(upperSortedZipped)       #collect only significant annotations
             retain_significant_annotation = [k[0] for k in retain_significant]
+            if uncertainty == "uncertain":
+                #### SPECIAL CASE: according to the deltas is multi assigned BUT only one annotation is significant ####
+                if len(retain_significant_annotation)==1:
+                    annotation+=[retain_significant_annotation[0].replace("."," "),]
+                    multi_label+=["NO",]
+                    primary_label+=[retain_significant_annotation[0].replace("."," ")]
+                    alternative_labels+=["NA",]
+                    if retain_significant_annotation[0].replace("."," ") not in cellTypes_counts:   #count the number of cells annotated to a specific cell type and collect the numbers into a dictionary having the cell type cathegory as keys
+                        cellTypes_counts[retain_significant_annotation[0].replace("."," ")]=1
+                    else:
+                        cellTypes_counts[retain_significant_annotation[0].replace("."," ")]+=1
+                    continue
+                else:
+                    cellTypes_counts["Multiassigned"]+=1
+                    annotation+=["Multiassigned",]
+                    multi_label+=["YES",]
+                    primary_label+=[retain_significant_annotation[0].replace("."," "),]
+                    alphabetic = sorted(retain_significant_annotation)
+                    alternative_labels+=[",".join(alphabetic),]
+                    continue
             annotation+=[retain_significant_annotation[0].replace("."," "),]
+            multi_label+=["NO",]
+            primary_label+=[retain_significant_annotation[0].replace("."," ")]
+            alternative_labels+=["NA",]
             if retain_significant_annotation[0].replace("."," ") not in cellTypes_counts:   #count the number of cells annotated to a specific cell type and collect the numbers into a dictionary having the cell type cathegory as keys
                 cellTypes_counts[retain_significant_annotation[0].replace("."," ")]=1
             else:
@@ -98,19 +160,22 @@ def cellTypes_barplot(T1,F1):
     for x in list(df.index):
         descrete_coloring[df.loc[x,"Cell Type"]]=df.loc[x,"Color"]
     descrete_coloring["Unclassified"]="black"                        #unclassified cells are "black"
+    descrete_coloring["Multiassigned"]="#d9d9d9"
     fig = px.bar(df,x="Cell Type",y="Counts",text_auto='.2s',color="Cell Type",color_discrete_map=descrete_coloring,  #plot
     title="Number of cells annotated per each cell type class")  
     fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
     fig.update_layout(xaxis_tickangle=-45,legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')
     fig.update_xaxes(tickfont_size=7)
     fig.write_html("barplot_cellTypesAboundance.html")     #save the plot in an html file
-    return fig,annotation,descrete_coloring
+    TABLE = pd.DataFrame.from_dict({"Cell_ID":cells_ids,"Prim.Lab":primary_label,"Multi_label":multi_label,"Alt.Lab":alternative_labels},orient='columns')
+    TABLE.to_csv("outcome_annotation_table.tsv",sep="\t",header=True,index=True)
+    return fig,annotation,descrete_coloring,cells_ids
 
 ''' The function umapPlot(t,a,note,color_dict) is resposinble of generating two umaps to show the annotation outcome in a grafical fashion. 
 	Two kind of umaps will be generated: 2D and 3D maps. The colors of each cells are the same of those reported in the "barplot_cellTypesAboundance.html" file.
 	Cells will be plotted following the expression defiving from the union (without replacement) of the cell types lists used for the likelihood-based annotation.'''
 
-def umapPlot(t,a,note,color_dict,M):
+def umapPlot(t,a,note,color_dict,M,cells_ids):
     df = pd.read_csv(t,sep="\t",header=0,index_col=0)   #counts table
     anno = pd.DataFrame(a)                              #annotation of each cell from the likelihood-ratio annotation
     anno.columns=["CELL_ANNOTATION"]
@@ -141,7 +206,7 @@ def umapPlot(t,a,note,color_dict,M):
                     continue
         else:
             continue
-
+ 
     filtDF = df.loc[genes,:].T 
     umap_2d = UMAP(n_components=2)     #calculate 2D UMAP coordinates 
     results_data = filtDF.values
@@ -161,7 +226,10 @@ def umapPlot(t,a,note,color_dict,M):
     fig_3d.update_layout(legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')   #plot
     fig_3d.update_traces(marker_size=3.5)
     fig_3d.write_html("UMAP_3D.html")   #save the plot in an html file
-
+    proj_2d.index=cells_ids
+    proj_3d.index=cells_ids
+    proj_2d.to_csv("umap_2d_coords.tsv",sep="\t",header=True, index=True)
+    proj_3d.to_csv("umap_3d_coords.tsv",sep="\t",header=True,index=True)
     return fig_2d,fig_3d
     
 ''' The function html_FinalReport(fig1,fig2,fig3,fig4) collects all the figures previously described and generate a final html report. '''
@@ -181,7 +249,9 @@ if __name__ == "__main__":
     counts = sys.argv[3]         #counts table
     notation = sys.argv[4]       #either "ensembl_id" or "gene_symbol" 
     mode = sys.argv[5]           #either "cell_type", "custom" or "naive"
+    deltas = sys.argv[6]         #table with delta values
+    lik_threshold = float(sys.argv[7])  #likelihood difference threshold 
     survival_Barplot = filter_barPlot(expression)
-    cellTypeQuantity_Barplot = cellTypes_barplot(p_values,expression)
-    umaps = umapPlot(counts,cellTypeQuantity_Barplot[1],notation,cellTypeQuantity_Barplot[2],mode)
+    cellTypeQuantity_Barplot = cellTypes_barplot(p_values,expression,deltas,lik_threshold,counts)
+    umaps = umapPlot(counts,cellTypeQuantity_Barplot[1],notation,cellTypeQuantity_Barplot[2],mode,cellTypeQuantity_Barplot[3])
     html_FinalReport(survival_Barplot,cellTypeQuantity_Barplot[0],umaps[0],umaps[1])
