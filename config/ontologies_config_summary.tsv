@@ -1,0 +1,294 @@
+cell_type_name,CO_id,Ass.Ontology
+PCP4L1+.Bipolar.cell,CL0000748,retinal bipolar neuron
+Thymic.myoid.cell,CL0009075,myo-medullary thymic epithelial cell
+Basal.prostatic.cell.HPA,CL0002341,basal cell of prostate epithelium
+Paneth.cell.HPA,CL0000510,paneth cell
+cDC1.cell,CL0001056,dendritic cell
+Sympathoadrenal.cell,CL3000002,sympathetic noradrenergic neuron
+Late.spermatocyte,CL0000657,secondary spermatocyte
+CDC20B+.Multiciliated.cell,CL4030034,respiratory ciliated cell
+Oocyte.HPA,CL0000023,oocyte
+Atrial.ventricular.cardiomyocyte,CL0010021,cardiac myoblast
+Heart.fibroblast,CL0002548,fibroblast of cardiac tissue
+SLC13A4+.Syncytiotrophoblast,CL0000525,syncytiotrophoblast cell
+Rod.photoreceptor,CL0000287,eye photoreceptor cell
+Squamous.epithelial.cell,CL0000076,squamous epithelial cell
+COL11A1.Fibroblast,CL0000057,fibroblast
+Skeletal.muscle.myoblast,CL0000515,skeletal muscle myoblast
+Mesodermal.cell,CL0000222,mesodermal cell
+pre-B.cell,CL0000956,pre-B-I cell
+Endocardial.cell,CL0002350,endocardial cell
+Meiotic.oocyte,CL0000023,oocyte
+PLA2G2A+IGFBP4+APOC1+.Fibroblast,CL0000057,fibroblast
+ANGPTL7+NRP2+.Fibroblast,CL0000057,fibroblast
+IFN.Responsed.trophoblast,CL0000351,trophoblast cell
+Type.beta.intercalated.cell,CL0002201,renal beta-intercalated cell
+Muller.glia.cell,CL0000125,glial cell
+Cone.photoreceptor.cell.HPA,CL0000718,compound eye cone cell
+Inhibitory.neuron,CL0000498,inhibitory interneuron
+Regulatory.dendritic.cell,CL0000451,dendritic cell
+Proliferation.perivascular.cell,CL4033054,perivascular cell
+SLAMF1+XCL-.Innate.lymphoid.cell,CL0001065,innate lymphoid cell
+Pancreatic.endocrine.cell.HPA,CL0008024,pancreatic endocrine cell
+Skeletal.myocyte.HPA,CL0000515,skeletal muscle myoblast
+Dark.zone.follicular.dendritic.cell,CL0000442,follicular dendritic cell
+Epithelial.cell,CL0000066,epithelial cell
+Surface.mucous.cell,CL0002182,surface mucosal cell of stomach
+Astrocyte.cell,CL0000127,astrocyte
+Common.myeloid.progenitor,CL0000049,common myeloid progenitor
+Double.negative.T.cell,CL0002489,double negative thymocyte
+Metamyelocyte.Band.Neutrophil.cell,CL0000582,neutrophilic metamyelocyte
+Type.alpha.intercalated.cell,CL0005011,renal alpha-intercalated cell
+Tuft.cell,CL0019032,intestinal tuft cell
+PSG5+.Syncytiotrophoblast,CL0000525,syncytiotrophoblast cell
+AFP+.Fetal.hepatocyte,CL0000182,hepatocyte
+Horizontal.cell.HPA,CL0000745,retina horizontal cell
+Villous.cytotrophoblast,CL2000060,placental villous trophoblast
+Perivascular.cell,CL4033054,perivascular cell
+Corneal.epithelial.cell,CL0000575,corneal epithelial cell
+Corneocyte-like.mTEC.cell,CL0002153,corneocyte
+Oocyte,CL0000023,oocyte
+Enterochromaffin.cell,CL0000504,enterochromaffin-like cell
+Fibroblast,CL0000057,fibroblast
+Eye.melanocyte,CL0002485,retinal melanocyte
+Pancreatic.PP.cell,CL0002275,pancreatic PP cell
+Neuron,CL0000540,neuron
+Proliferation.myeloid.cell,CL0000763,myeloid cell
+Dendritic.cell.HPA,CL0000451,dendritic cell
+Aerocyte,CL4028001,pulmonary capillary endothelial cell
+SST.Inhibitory.neuron,CL4023017,sst GABAergic cortical interneuron
+Glia.cell,CL0000125,glial cell
+Hepatocyte,CL0000182,hepatocyte
+Serous.glandular.cell.HPA,CL0000313,serous secreting cell
+Erythroid.cell.HPA,CL0000232,erythrocyte
+Multifunctional.T.cell,CL0000084,T cell
+Intestinal.transit.cell,CL0009012,transit amplifying cell of small intestine
+Schwann.cell.HPA,CL0002573,Schwann cell
+GABRP.Endometrium.cell,CL0002255,stromal cell of endometrium
+MHC.Class.II.high.monocyte.DC.macrophage.cell,CL0002473,MHC-II-high non-classical monocyte
+Bone.marrow.common.lymphoid.progenitor,CL0000051,common lymphoid progenitor
+CLDN3.Epithelial.cell,CL0000066,epithelial cell
+Syncytiotrophoblast.HPA,CL0000525,syncytiotrophoblast cell
+pro-B.cell,CL0000826,pro-B cell
+THY1+.Fibroblast-like-pericyte,CL0000057,fibroblast
+Sympathoblast,CL0011103,sympathetic neuron
+SPARCL1.Fibroblast,CL0000057,fibroblast
+T.cell,CL0000084,T cell
+Endothelial.cell,CL0000115,endothelial cell
+Tissue.resident.macrophage,CL0000864,tissue-resident macrophage
+Mammary.luminal.cell,CL0002326,luminal epithelial cell of mammary gland
+Enteroendocrine.cell,CL0000164,enteroendocrine cell
+Airway.basal.cell,CL4033024,airway submucosal gland duct basal cell
+Proximal.enterocyte.HPA,CL0000584,enterocyte
+Mesothelial.cell,CL0000077,mesothelial cell
+SPRR2F.Pericyte,CL0000669,pericyte
+Melanoctye.HPA,CL0000148,melanocyte
+Oligodendrocyte.progenitor.cell,CL0002453,oligodendrocyte precursor cell
+Kupffer.cell.HPA,CL0000091,Kupffer cell
+Metallothionein.smooth.muscle.cell,CL0000192,smooth muscle cell
+FGFBP2.Fibroblast,CL0000057,fibroblast
+MYOM1+.Skeletal.muscle.cell,CL0000188,cell of skeletal muscle
+Cycling.DP.DN.T.cell,CL0000084,T cell
+Merkel.cell,CL0000242,Merkel cell
+Plasmacytoid.dendritic.cell,CL0000784,plasmacytoid dendritic cell
+Olygodendrocyte.HPA,CL0000128,oligodendrocyte
+Secretory.cell,CL0000151,secretory cell
+Vascular.cell,CL4033054,perivascular cell
+Proliferation.unknown.cell,CL0000000,cell
+APCDD1.Fibroblast,CL0000057,fibroblast
+B.lymphocyte.progenitor.cycling.cell,CL0017006,B-lymphoblast
+Rod-bipolar.cell,CL0000751,rod bipolar cell
+IL1RAPL1+.Leyding.cell,CL0000178,Leydig cell
+Metallothionein+.collagen-.fibroblast,CL0000057,fibroblast
+Merkel.cell.carcinoma.enriched.epthelial.cell,CL0000242,Merkel cell
+Intestinal.cell,CL0002563,intestinal epithelial cell
+Innate.lymphoid.cell,CL0001065,innate lymphoid cell
+Melanocyte,CL0000148,melanocyte
+Ciliated.cell.HPA,CL0000064,ciliated cell
+G0S2+PPP1R14A+.Fibroblast,CL0000057,fibroblast
+GREB1.Fibroblast,CL0000057,fibroblast
+Met.epithelial.cell,CL0000066,epithelial cell
+Breast.myoepithelial.cell.HPA,CL0000185,myoepithelial cell
+Erthrocyte,CL0000232,erythrocyte
+Neuroblast,CL0000031,neuroblast (sensu Vertebrata)
+Basal.cell.of.bladder,CL0000646,basal cell
+Adrenal.gland.cell,CL1001601,adrenal gland glandular cell
+Leyding.cell,CL0000178,Leydig cell
+TFF1.Ductal.cell,CL0002079,pancreatic ductal cell
+Lymphoid.pre-pDC.cell,CL0000838,lymphoid lineage restricted progenitor cell
+Double.positive.T.cell,CL0000809,"double-positive, alpha-beta thymocyte"
+PDGFRA+BMP4+.Fibroblast,CL0000057,fibroblast
+Epsilon.cell,CL0005019,pancreatic epsilon cell
+Proliferation.hofbauer.cell,CL3000001,Hofbauer cell
+Red.blood.cell,CL0002355,primitive red blood cell
+Granulosa.cell.HPA,CL0000501,granulosa cell
+B.cell,CL0000236,B cell
+Intestinal.neuron,CL0000540,neuron
+TCIM+NRG1+Fibroblast,CL0000057,fibroblast
+Neutrophil.granulocyte.cell,CL0000775,neutrophil
+CXCL+Fibroblast,CL0000057,fibroblast
+Oligodendrocyte.precursor.cell.HPA,CL0002453,oligodendrocyte precursor cell
+ADAMDEC1+CXCL14+.Fibroblast,CL0000057,fibroblast
+Renal.epithelial.cell.-.distal.tubules,CL1000849,kidney distal convoluted tubule epithelial cell
+Pulmonary.alveolar.type.2.cell,CL0002063,pulmonary alveolar type 2 cell
+Slow-twitch.skeletal.muscle.cell,CL0000189,slow muscle cell
+Alveolar.macrophage,CL0000583,alveolar macrophage
+KRT12_ECM1.Basal.cell,CL0000646,basal cell
+Paneth.cell,CL0000510,paneth cell
+Elongated.spermatid,CL0000018,spermatid
+Lymphatic.endothelial.cell,CL0002138,endothelial cell of lymphatic vessel
+Microglia,CL0000129,microglial cell
+Fetal.ventricular.cardiomyocyte,CL0002495,fetal cardiomyocyte
+ITGAX+.Macrophage,CL0000235,macrophage
+Placenta.CAMP+.antimicrobial.monocyte,CL0000875,non-classical monocyte
+Megakaryocyte,CL0000556,megakaryocyte
+Enterocyte,CL0000584,enterocyte
+COCH.Fibroblast,CL0000057,fibroblast
+Langerhans.cell.HPA,CL0000453,Langerhans cell
+Proliferating.differentiating.T.cell,CL4033069,cycling T cell
+Intestinal.fibroblast,CL4052007,subepithelial intestinal fibroblast
+Cardiomyocyte.HPA,CL0002494,cardiocyte
+Supporting-like.PAX8+.cell,CL0000630,supporting cell
+Club.cell,CL0000158,club cell
+Late.spermatids.HPA,CL0000018,spermatid
+Spermatocyte.HPA,CL0000017,spermatocyte
+Ovarian.stromal.cell.HPA,CL0002132,stromal cell of ovary
+Podocyte,CL0000653,podocyte
+Goblet.cell,CL0000160,goblet cell
+Macrophage.HPA,CL0000235,macrophage
+Plasma.cell,CL0000786,plasma cell
+Exocrine.gladular.cell.HPA,CL1001599,pancreas exocrine glandular cell
+MMP1.Fibroblast,CL0000057,fibroblast
+B.cell.HPA,CL0000236,B cell
+Delta.cell,CL0000173,pancreatic D cell
+Placenta.defensin+.antimicrobial.monocyte,CL0000875,non-classical monocyte
+Renal.epithelial.proximal.tubules.cell,CL0002306,epithelial cell of proximal tubule
+Thymic.epithelial.cell,CL0002293,epithelial cell of thymus
+Megakaryocyte.progenitor,CL0000553,megakaryocyte progenitor cell
+Elongating.spermatid,CL0000018,spermatid
+Early.SOX4+Erythroblast,CL0000765,erythroblast
+Sertoli.cell.HPA,CL0000216,Sertoli cell
+Mesenchymal.stromal.cell,CL0008019,mesenchymal cell
+Luminal.epithelial.cell,CL0000066,epithelial cell
+FBLN2+APOD+Fibroblast,CL0000057,fibroblast
+Glia.progenitor.cycling,CL0000125,glial cell
+Mesothelial.cell.HPA,CL0000077,mesothelial cell
+Chief.cell,CL0000446,chief cell of parathyroid gland
+Salivary.duct.cell.HPA,CL0009005,salivary gland cell
+Ductal.cell.HPA,CL0002079,pancreatic ductal cell
+FRZB.Fibroblast,CL0000057,fibroblast
+Oligodendrocyte,CL0000128,oligodendrocyte
+Peritubular.myoid.cell,CL0002481,peritubular myoid cell
+Breast.basal.cell,CL0000646,basal cell
+Dark.light.zone.GC.B.cell,CL0000236,B cell
+CXCL13.Fibroblast,CL0000057,fibroblast
+Horizontal.cell,CL0000745,retina horizontal cell
+INSL3+Leyding.cell,CL0000178,Leydig cell
+Lactocyte,CL0002325,lactocyte
+Breast.milk.macrophage,CL0000235,macrophage
+Adipocyte,CL0000136,adipocyte
+Cholangiocyte.HPA,CL1000488,cholangiocyte
+Endometrial.stromal.cell.HPA,CL0002255,stromal cell of endometrium
+Proliferating.endothelial.cell,CL0000115,endothelial cell
+Granulocyte.HPA,CL0000094,granulocyte
+Granulosa.cell,CL0000501,granulosa cell
+Alveolar.cells.type.1.HPA,CL0002062,pulmonary alveolar type 1 cell
+Gastric.mucus-secreting.cell.HPA,CL0000319,mucus secreting cell
+Spermatogonium,CL0000020,spermatogonium
+CXCL14+POSTN+.Fibroblast,CL0000057,fibroblast
+IGFBP1.Fibroblast,CL0000057,fibroblast
+TFF+.Cholangiocyte,CL1000488,cholangiocyte
+SCGB2A1+.Endocrine.cell,CL0000163,endocrine cell
+Contractile.pericyte.cell,CL0000669,pericyte
+Renal.epithelial.cell.-.loop.of.Henle,CL1000909,kidney loop of Henle epithelial cell
+Pericyte,CL0000669,pericyte
+PEAP.endometrium.cell,CL0002255,stromal cell of endometrium
+Inhibitory.neuron.HPA,CL0000498,inhibitory interneuron
+Retinal.pigment.epithelial.cell,CL0002586,retinal pigment epithelial cell
+Peritubular.cell.HPA,CL0002481,peritubular myoid cell
+Metallothionein+.lactocyte,CL0002325,lactocyte
+Multipotential.fibroblast,CL0000057,fibroblast
+Endocrine.cell,CL0000163,endocrine cell
+Early.spermatocyte,CL0000017,spermatocyte
+ADOP.Fibroblast,CL0000057,fibroblast
+CXCL1_2_3.Fibroblast,CL0000057,fibroblast
+Ciliary.body.cell,CL0002303,pigmented ciliary epithelial cell
+Cycling.cDC2.cell,CL4033070,cycling dendritic cell
+Pre-pDC_lymphoid.origin_.cell,CL0000051,common lymphoid progenitor
+Amacrine.cell,CL0000561,amacrine cell
+Bronchus.mucous.viscosity.cell,CL4033022,mucus secreting cell of bronchus submucosal gland
+F13A.Fibroblast,CL0000057,fibroblast
+Fibrous.Protoplasmatic.astrocyte,CL0000127,astrocyte
+Acinal.cell,CL0000622,acinar cell
+Prostatic.glandular.cell.HPA,CL0000150,glandular epithelial cell
+PVALB.Inhibitory.neuron,CL4023018,pvalb GABAergic cortical interneuron
+Astrocyte.HPA,CL0000127,astrocyte
+Round.spermatid,CL0000018,spermatid
+APOE.Fibroblast,CL0000057,fibroblast
+Smooth.muscle.cell.HPA,CL0000192,smooth muscle cell
+Basal.squamous.epithelial.cell.HPA,CL0000076,squamous epithelial cell
+Proliferation.Mast.cell,CL0000097,mast cell
+SPINK1+SGMS2+.Cholangiocyte,CL1000488,cholangiocyte
+Chromaffin.cell,CL0000166,chromaffin cell
+Secretory.cell.HPA,CL0000151,secretory cell
+KRT14.basal.cell,CL0000646,basal cell
+Common.lymphoid.progenitor,CL0000051,common lymphoid progenitor
+Distal.enterocyte,CL0000584,enterocyte
+Extravillous.trophoblast,CL0008036,extravillous trophoblast
+Cone.cell,CL0000718,compound eye cone cell
+Basal.superbasal.keratinocyte,CL4033013,suprabasal keratinocyte
+Excitatory.neuron,CL0000104,multipolar neuron
+Epithelial.cell.of.conjunctiva,CL1000432,conjunctival epithelial cell
+CXCL6+.Cholangiocyte,CL1000488,cholangiocyte
+Tonsillar.crypt.cell,CL1001577,tonsil squamous cell
+CCL2+SFRP2+.Fibroblast,CL0000057,fibroblast
+Mammary.basal.cell,CL0000646,basal cell
+Excitatory.neuron.HPA,CL0000104,multipolar neuron
+Plasma.cell.HPA,CL0000786,plasma cell
+Primordial.germ.cell,CL0000670,primordial germ cell
+Keratinocyte,CL0000312,keratinocyte
+Myeloid.cell,CL0000763,myeloid cell
+Mast.cell,CL0000097,mast cell
+Developing.germ.cell,CL0000586,germ cell
+ECM1.basal.cell,CL0000646,basal cell
+Fast-twitch.skeletal.muscle.cell,CL0000190,fast muscle cell
+Microglia.HPA,CL0000129,microglial cell
+Cycling.goblet.cell,CL0000160,goblet cell
+Cone-off-bipolar.cell,CL0000752,cone retinal bipolar cell
+Cycling.myeloid.cell,CL4033081,cycling myeloid cell
+Adipose.ITLN1.Fibroblast,CL0009099,fibro/adipogenic progenitor cell
+Sertoli.cell,CL0000216,Sertoli cell
+Pulmonary.alveolar.type.1.cell,CL0002062,pulmonary alveolar type 1 cell
+Alveolar.cells.type.2.HPA,CL0002063,pulmonary alveolar type 2 cell
+Epithelial.cell.of.intestine,CL0002254,epithelial cell of small intestine
+CCL19_21.Fibroblast,CL0000057,fibroblast
+Light.zone.Follicular.dendritic.cell,CL0000442,follicular dendritic cell
+CYGB+.Pericyte,CL0000669,pericyte
+Ovary.granulosa.mesothelial.cell,CL0000501,granulosa cell
+SLAMF1-XCL+.Innate.lymphoid.cell,CL0001065,innate lymphoid cell
+Basal.respiratory.cell.HPA,CL0002633,respiratory basal cell
+Smooth.muscle.cell,CL0000192,smooth muscle cell
+PCP4+Vascular.smooth.muscle.cell,CL0000359,vascular associated smooth muscle cell
+Early.spermatids,CL0000018,spermatid
+Myofibroblast,CL0000186,myofibroblast cell
+TIP.endothelial.cell,CL0000704,endothelial tip cell
+Cone-on-bipolar.cell,CL0000752,cone retinal bipolar cell
+Osteoclast,CL0000092,osteoclast
+Granular.keratinocyte,CL0000312,keratinocyte
+Retinal.ganglion.cell,CL0000740,retinal ganglion cell
+Neuroendocrine.cell,CL0000165,neuroendocrine cell
+CXCL14.Fibroblast,CL0000057,fibroblast
+Pre-pDC.myeloid.cell,CL0000839,myeloid lineage restricted progenitor cell
+C2ORF40.Fibroblast,CL0000057,fibroblast
+Glandular.and.luminal.cell.HPA,CL0000150,glandular epithelial cell
+Multiciliated.cell,CL0005012,multi-ciliated epithelial cell
+Alpha.cell,CL0000171,pancreatic A cell
+Hofbauer.cell,CL3000001,Hofbauer cell
+Ciliated.cell,CL0000064,ciliated cell
+Collecting.duct.cell.HPA,CL0000064,kidney collecting duct cell
+TUBA1A.Ductal.cell,CL0002079,pancreatic ductal cell
+CXCL+.CCL19.21.Pericyte,CL0000669,pericyte
+Beta.cell,CL0000169,type B pancreatic cell
+Distal.tubular.cell.HPA,CL1000849,kidney distal convoluted tubule epithelial cell
+Mucus.glandular.cell.HPA,CL0000319,mucus secreting cell
+Unbiguous.common.progenitor,CL0011026,progenitor cell
