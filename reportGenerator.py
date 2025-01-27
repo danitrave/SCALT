@@ -69,7 +69,7 @@ def filter_barPlot(f):
 
 """ The function cellTypes_barplot(T1,F1,DELTAS,THRESH) generates a barplot reporting the number of cell types identified per each cell type class."""
 
-def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
+def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data,mode):
     tsv = open(counts_data,"r")
     stop = 0
     for line in tsv:
@@ -84,17 +84,32 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
     alternative_labels = []
     #################################################
     annotation = []
+    cell_ontology_annotation = []
+    cell_ontology_color = ["Unclassified","Multiassigned"]
     df = pd.read_csv(T1,sep="\t",header=0,index_col=0)    #table reporting the p-values from the likelihood-ratio test
     INDEXES = list(df.index)
     COLS = list(df.columns)
     deltas = pd.read_csv(DELTAS,sep="\t",header=0,index_col=0)  #likelihood difference bewteen avrg type and cell type model
     surv = pd.read_csv(F1,sep="\t",header=0,index_col=0)   #table reporting the PASS-EXCLUDE notation based on the survival or not to the genes-expressed filter
     cellTypes_counts = {"Unclassified":0,"Multiassigned":0}
+    ##### Cell ontology config loading #####
+    COD = {}
+    CO = open("config/ontologies_config_summary.tsv","r")
+    for line in CO:
+        if line.startswith("cell_type_name"):
+            continue
+        else:
+            k = line.strip("\n").split(",")
+            if k[1] not in COD:
+                COD[k[1]]=k[2]
+            else:
+                continue
+    CO.close()
     for i in range(len(INDEXES)):
         if surv.iloc[i,0]=="EXCLUDE":              #cells not passing the genes-expressed filer are annotated as "unclassified"
             cellTypes_counts["Unclassified"]+=1
             annotation+=["Unclassified",]
-            
+            cell_ontology_annotation += ["Unclassified",]
             primary_label+=["Unclassified",]
             multi_label+=["NA",]
             alternative_labels+=["NA",]
@@ -106,7 +121,7 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
             if minimum > 0.05:
                 cellTypes_counts["Unclassified"]+=1     #cells having the lowest p-value greater than 0.05 are annotated as "unclassified"
                 annotation+=["Unclassified",]
-                
+                cell_ontology_annotation += ["Unclassified",]
                 primary_label+=["Unclassified",]
                 multi_label+=["NA",]
                 alternative_labels+=["NA",]
@@ -126,6 +141,11 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
                 #### SPECIAL CASE: according to the deltas is multi assigned BUT only one annotation is significant ####
                 if len(retain_significant_annotation)==1:
                     annotation+=[retain_significant_annotation[0].replace("."," "),]
+                    if mode == "cell_types":
+                        ontology_na = COD["CL"+retain_significant_annotation[0].split("-CL")[1]]+"-CL"+retain_significant_annotation[0].split("-CL")[1]
+                        cell_ontology_annotation+=[ontology_na,]
+                        if ontology_na not in cell_ontology_color:
+                            cell_ontology_color += [ontology_na,]
                     multi_label+=["NO",]
                     primary_label+=[retain_significant_annotation[0].replace("."," ")]
                     alternative_labels+=["NA",]
@@ -137,12 +157,18 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
                 else:
                     cellTypes_counts["Multiassigned"]+=1
                     annotation+=["Multiassigned",]
+                    cell_ontology_annotation += ["Multiassigned",]
                     multi_label+=["YES",]
                     primary_label+=[retain_significant_annotation[0].replace("."," "),]
                     alphabetic = sorted(retain_significant_annotation)
                     alternative_labels+=[",".join(alphabetic),]
                     continue
             annotation+=[retain_significant_annotation[0].replace("."," "),]
+            if mode == "cell_types":
+                ontology_na = COD["CL"+retain_significant_annotation[0].split("-CL")[1]]+"-CL"+retain_significant_annotation[0].split("-CL")[1]
+                cell_ontology_annotation+=[ontology_na,]
+                if ontology_na not in cell_ontology_color:
+                    cell_ontology_color += [ontology_na,]
             multi_label+=["NO",]
             primary_label+=[retain_significant_annotation[0].replace("."," ")]
             alternative_labels+=["NA",]
@@ -155,8 +181,15 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
     df.columns = ["Counts"]
     df.insert(0,"Cell Type",list(df.index), True)
     color = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)]) for i in range(df.shape[0])]   #set colors for each cathegory
+    color_ontologies = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)]) for i in range(len(cell_ontology_color))]
     df.insert(2,"Color",color,True)
     descrete_coloring = {}
+    descrete_coloring_ontologies = {}
+    for y in range(len(cell_ontology_color)):
+        descrete_coloring_ontologies[cell_ontology_color[y]]=color_ontologies[y]
+    descrete_coloring_ontologies["Unclassified"]="black"                        #unclassified cells are "black"
+    descrete_coloring_ontologies["Multiassigned"]="#d9d9d9"
+
     for x in list(df.index):
         descrete_coloring[df.loc[x,"Cell Type"]]=df.loc[x,"Color"]
     descrete_coloring["Unclassified"]="black"                        #unclassified cells are "black"
@@ -169,18 +202,24 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data):
     fig.write_html("barplot_cellTypesAboundance.html")     #save the plot in an html file
     TABLE = pd.DataFrame.from_dict({"Cell_ID":cells_ids,"Prim.Lab":primary_label,"Multi_label":multi_label,"Alt.Lab":alternative_labels},orient='columns')
     TABLE.to_csv("outcome_annotation_table.tsv",sep="\t",header=True,index=True)
-    return fig,annotation,descrete_coloring,cells_ids
+    return fig,annotation,descrete_coloring,cells_ids,cell_ontology_annotation,descrete_coloring_ontologies
 
 ''' The function umapPlot(t,a,note,color_dict) is resposinble of generating two umaps to show the annotation outcome in a grafical fashion. 
 	Two kind of umaps will be generated: 2D and 3D maps. The colors of each cells are the same of those reported in the "barplot_cellTypesAboundance.html" file.
 	Cells will be plotted following the expression defiving from the union (without replacement) of the cell types lists used for the likelihood-based annotation.'''
 
-def umapPlot(t,a,note,color_dict,M,cells_ids):
+def umapPlot(t,a,note,color_dict,M,cells_ids,onto_anno,onto_color):
     df = pd.read_csv(t,sep="\t",header=0,index_col=0)   #counts table
     anno = pd.DataFrame(a)                              #annotation of each cell from the likelihood-ratio annotation
     anno.columns=["CELL_ANNOTATION"]
     uniqueAnno = list(anno["CELL_ANNOTATION"].unique())
     color = [color_dict[f] for f in list(anno["CELL_ANNOTATION"])]   #assing each cell to the corresponding color based on the annotation outcome
+    
+    #### Save as before but for the ontology ####
+    onto_cell_type = pd.DataFrame(onto_anno)
+    onto_cell_type.columns=["CELL_ANNOTATION"]
+    onto_unique_anno = list(onto_cell_type["CELL_ANNOTATION"].unique())
+    color_sc_onto_anno = [onto_color[f] for f in list(onto_cell_type["CELL_ANNOTATION"])]
     
     #### consider only the genes extracted from the cell types that have at leat 50 cells annototated ####
     occurencesCounting = {}
@@ -192,7 +231,8 @@ def umapPlot(t,a,note,color_dict,M,cells_ids):
     cell_typesForUMAP = []
     for k in occurencesCounting:
         if occurencesCounting[k] >= 50:
-            cell_typesForUMAP+=[k.replace(" ",".").lower().capitalize()+".tsv",]
+            cell_typesForUMAP+=[k.replace(" ",".")+".tsv",]
+    
     genes = []
     cells = os.listdir(M+"/")     #genes to consider to the umap creation
     for c in cells:
@@ -206,7 +246,7 @@ def umapPlot(t,a,note,color_dict,M,cells_ids):
                     continue
         else:
             continue
- 
+    
     filtDF = df.loc[genes,:].T 
     umap_2d = UMAP(n_components=2)     #calculate 2D UMAP coordinates 
     results_data = filtDF.values
@@ -230,18 +270,37 @@ def umapPlot(t,a,note,color_dict,M,cells_ids):
     proj_3d.index=cells_ids
     proj_2d.to_csv("umap_2d_coords.tsv",sep="\t",header=True, index=True)
     proj_3d.to_csv("umap_3d_coords.tsv",sep="\t",header=True,index=True)
-    return fig_2d,fig_3d
+
+    #### Save the umap but using the cell ontology annotation ####
+    if M == "cell_types":
+        proj_2d["Annotation"]=list(onto_cell_type["CELL_ANNOTATION"])
+        proj_2d.columns  = ["UMAP_1","UMAP_2","Annotation"]
+        fig_2d_onto = px.scatter(proj_2d, x="UMAP_1", y="UMAP_2",color=proj_2d.Annotation,color_discrete_map=onto_color,title="UMAP-2D cell ontologies")
+        fig_2d_onto.update_layout(legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')   #plot
+        fig_2d_onto.update_traces(marker_size=6)
+        fig_2d_onto.write_html("UMAP_2D_ONTO.html")
+    else:
+        fig_2d_onto="NULL"
+    return fig_2d,fig_3d,fig_2d_onto
     
 ''' The function html_FinalReport(fig1,fig2,fig3,fig4) collects all the figures previously described and generate a final html report. '''
 
-def html_FinalReport(fig1,fig2,fig3,fig4):
-
-    with open('REPORT.html', 'w') as html:
-        html.write(fig1.to_html(full_html=False, include_plotlyjs='cdn'))
-        html.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
-        html.write(fig3.to_html(full_html=False, include_plotlyjs='cdn'))
-        html.write(fig4.to_html(full_html=False, include_plotlyjs='cdn'))
-    html.close()
+def html_FinalReport(fig1,fig2,fig3,fig4,fig5):
+    if fig5 == "NULL":
+        with open('REPORT.html', 'w') as html:
+            html.write(fig1.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig3.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig4.to_html(full_html=False, include_plotlyjs='cdn'))
+        html.close()
+    else:
+        with open('REPORT.html', 'w') as html:
+            html.write(fig1.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig3.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig4.to_html(full_html=False, include_plotlyjs='cdn'))
+            html.write(fig5.to_html(full_html=False, include_plotlyjs='cdn'))
+        html.close()
 
 if __name__ == "__main__":
     p_values = sys.argv[1]       #table with all p-values
@@ -252,6 +311,6 @@ if __name__ == "__main__":
     deltas = sys.argv[6]         #table with delta values
     lik_threshold = float(sys.argv[7])  #likelihood difference threshold 
     survival_Barplot = filter_barPlot(expression)
-    cellTypeQuantity_Barplot = cellTypes_barplot(p_values,expression,deltas,lik_threshold,counts)
-    umaps = umapPlot(counts,cellTypeQuantity_Barplot[1],notation,cellTypeQuantity_Barplot[2],mode,cellTypeQuantity_Barplot[3])
-    html_FinalReport(survival_Barplot,cellTypeQuantity_Barplot[0],umaps[0],umaps[1])
+    cellTypeQuantity_Barplot = cellTypes_barplot(p_values,expression,deltas,lik_threshold,counts,mode)
+    umaps = umapPlot(counts,cellTypeQuantity_Barplot[1],notation,cellTypeQuantity_Barplot[2],mode,cellTypeQuantity_Barplot[3],cellTypeQuantity_Barplot[-2],cellTypeQuantity_Barplot[-1])
+    html_FinalReport(survival_Barplot,cellTypeQuantity_Barplot[0],umaps[0],umaps[1],umaps[2])

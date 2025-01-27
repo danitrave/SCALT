@@ -64,7 +64,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity
         print("Error: could not generate the directory ./results_directory")
     
     try:
-        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" results_directory/")
+        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" results_directory/")
     except:
         print("Error: cannot move the files in the final results_directory/")
 
