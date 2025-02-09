@@ -115,6 +115,7 @@ The tool returns two outputs:
 2. a directory (default name mi_merge_results) grouping all the additional results and metadata deriving from SCALT_merge.py
 
 The directory contains the following files:
+
 1. **boos_mutual_information.tsv** reports the mutual information values calculated per each pair of bootstrap lists of the same cell type; 
 2. **thresholdsMI.tsv** is a tabular file reporting a series of metrics summarizing the distribution of mutual information values deriving from lists of the same cell types, including the cell type specific mutual information threshold; 
 3. **miProbTables/** is a directory containing a series of **.tsv** files each reporting the probability of finding each gene across a number of bootstrap lists of the same cell type;
