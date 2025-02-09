@@ -40,6 +40,8 @@ The steps and the relative programs of SCALT are summarized in the following wor
    :align: center
    :scale: 40%
 
-
+1. **bootstrap_lists.py** estimates the probability of finding each gene across a number of bootstrap lists of the same cell type deriving from different number of bootstrap samples. The bootstrap samples are those originated from the **SCALT_annotationListBuilder.py** utility of SCALT. Moreover, it computes the mutual information between each pair of cell type specific list of the same type deriving from each bootstrap sample, excluding self-comparison;
+2. **threshold_estimate_mi.R** estimates the threshold of mutual information above which two lists should be merged in a unique one. Specifically, the threshold is the minimum mutual information value observed between two bootstrap lists of the same type;
+3. **merger.py** calculates the mutual information between the cell type specific lists of genes in the **custom** input directory using bootstrap probabilies and mutual information threholds derived from the previous steps. The final output is a report highlighting which cell types should be considered as a unique one and the relative similarity measurements expressed in terms of mutual information.
 
 Please, follow the next sections of the manual for instructions and tips.
