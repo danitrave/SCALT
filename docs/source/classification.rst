@@ -1,7 +1,7 @@
-Inputs & Outputs
+Inputs and Outputs
 ================
 
-SCALT.py requires a scRNA seq row counts matrix as input data. The matrix must be in **.tsv** extension reporting:
+The input of SCALT is a matrix of raw counts from single cell RNA sequencing. The matrix must be in **.tsv** extension reporting:
 
 1. genes on the rows;
 2. cells on the columns.
@@ -148,16 +148,18 @@ An example of the input file is reported below.
 The application returns two outputs:
 
 1. a report file in **.html** format;
-2. a directory named **results_directory** hosting a collection of metadata produced upon classification.
+2. a directory (named by default as **results_directory**) hosting a collection results and metadata produced upon classification.
 
-The metadata directory lists a series of files which are produced automatically during the classification step and are required for the generation of the report. Among them, we find:
+The directory contains a series of files which are produced automatically during the classification step and are required for the generation of the report. Among them, we find:
 
-1. **p_values.tsv**, a tabular file reporting a collection of p-values per each cell. Each p-value indicates to a likehood test. Therefore, the number corresponds to the number of cell types tested;
-2. **deltas.tsv**, a tabular file reporting a series of likelihood differences between the cell type specific model and the mean cell type. The number corresponds to the number of cell types tested;
-3. **originalTables_zipped.zip**, a zipped file containing the original counts;
+1. **p_values.tsv**. Tabular file reporting a collection of p-values per each cell. Each p-value indicates to a likehood test. Therefore, the number corresponds to the number of cell types tested;
+2. **deltas.tsv**. Tabular file reporting a series of likelihood differences between the cell type specific model and the mean cell type. The number corresponds to the number of cell types tested;
+3. **originalTables_zipped.zip**. A zipped file containing the original counts;
 4. **_adj.tsv** file. Counts table after input set-up performed by SCALT.py by default;
 5. **_adj_genesExpressed_filter.tsv** file. Tabular file reporting either **PASS** or **EXCLUDE** if the cell expresses at least the minimum number of genes set in the -Min (or --Threshold) parameter or not;
 6. **barplot_cellTypesAboundance.html**, **barplot_survivedCells.html**, **UMAP_2D.html** and **UMAP_3D.html**. Collection of plots visualized in the report file.
+7. **outcome_annotation_table.tsv**. A table summarizing the outcome of the classification per each cell. More datails can be found in the **PBMC 3K tutorial**
+8. **umap_2d_coords.tsv** and **umap_3d_coords.tsv**. Tabular files reporting respectively the coordinates of the 2-dimensional and 3-dimensional UMAPs present in the report file.
 
 
 SCALT parameters
@@ -180,20 +182,21 @@ The documentation should appear as follows:
 ::
 
   usage: SCALT.py [-h] [-Min --Threshold] [-Notation --Notation]
-                [-Types --Types] [-CPUs --CPUs]
+             [-Types --Types] [-CPUs --CPUs] [-pvalue --pvalue]
                 Sample
 
 1. **Sample** is the only positional argument of the tool. It represents the scRNA seq counts matrix file;
-2. **-Min** or **--Threshold** is the minimum number of genes that a cell must express to be classified. The **default** value is **250**;
-3. **-Notation** or **--Notation** is the type of gene notation present in the counts. The defaul is **ensembl id**. Instead, write **gene_symbol** to switch to the gene symbol nomenclature;
-4. **-Types** or **--Types** is the name of the directory containg the lists of the cell types to use in the likelihood test. By default, only the pre-compiled lists (DISCO, HPA) are used. To use only the custom lists generated from annotation, insert **custom**. Finally, to utilize only the custom lists generated from the user-defined lists, insert **naive**;
-5. **-CPUs** or **--CPUs** is number of processors employed. The default is **1**;
-6. **-h** or **--help** shows the documentation.
+2. **-h** or **--help** shows the documentation.
+3. **-Min** or **--Threshold** is the minimum number of genes that a cell must express to be classified. The **default** value is **250**;
+4. **-Notation** or **--Notation** is the type of gene notation present in the counts. The defaul is **ensembl id**. Instead, write **gene_symbol** to switch to the gene symbol nomenclature;
+5. **-Types** or **--Types** is the name of the directory containing the lists of the cell types to use in the likelihood test. By default, only the 293 pre-compiled lists (DISCO, HPA) are used. To use only the custom lists generated from annotation, insert **custom**;
+6. **-CPUs** or **--CPUs** is number of processors employed. The default is **1**;
+6. **-pvalue** or **--pvalue** indicates the significance level corresponding to the likelihood difference that there must be between the most signficant classification and the other pluasible ones in order to unequivocally annotate a cell to a type. If the likelihood difference is not reached, the cell will be classified as **multiassigned**. By default, the p-value threshold is **0.05** and corresponds to a likelihood difference of 6. Set the threshold to **0.01** to increase the stringency of the likelihood difference up to 9.  
 
 Run SCALT.py
 =========
 
-SCALT.py is quite straightforward sine it requires just the counts table as positional input. 
+SCALT.py is quite straightforward since it requires just the counts table as positional input. 
 
 Leaving default parameters, the basic command appears as follows:
 
@@ -215,7 +218,7 @@ Or:
 
    python3 SCALT.py read_counts.tsv --Notation gene_symbol
 
-By default, a cell is classified if it expresses at least **250** genes. Managing the SCALT.py parameters, this threshold che be modified as follows:
+By default, a cell is classified if it expresses at least **250** genes. Managing the SCALT.py parameters, this threshold che be modified with any number as follows:
 
 ::
 
@@ -241,17 +244,29 @@ Or:
 
 Make sure to have available the number of desidered processors in your machine.
 
-To conclude, the different parameters can be modified in a unique call:
+Finally, the significance threshold can be modified in the following way:
 
 ::
 
-   python3 SCALT.py read_counts.tsv -Notation gene_symbol -Min 500 -CPUs 4
+   python3 SCALT.py read_counts.tsv -pvalue 0.01
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --Notation gene_symbol --Threshold 500 --CPUs 4
+   python3 SCALT.py read_counts.tsv --pvalue 0.01
+
+Adjusting the parameters in a unique call, the final command should appear as follows:
+
+::
+
+   python3 SCALT.py read_counts.tsv -Notation gene_symbol -Min 500 -CPUs 4 -pvalue 0.01
+
+Or:
+
+::
+
+   python3 SCALT.py read_counts.tsv --Notation gene_symbol --Threshold 500 --CPUs 4 --pvalue 0.01
 
 The order of parameters is irrelevant.
 
@@ -262,12 +277,13 @@ Report
 The report is a file in html format composed of a collection of plots summarizing the general statistics and classification results of the analysis. The file reports four different plots:
 
 1. a bar plot showing how many cells express or not the minimum number of genes for classification;
-2. a second barplot counting how many cells were classified to a cell type cathegory;
+2. a second barplot counting how many cells were classified to each cell type cathegory;
 3. a 2D UMAP;
 4. a 3D UMAP.
+5. a 2D UMAP where cells are colored based on the cell ontology.
 
 .. note::
-   The genes used for the creation of the UMAPs coordinates are the union of genes coming from the 471 lists of genes without repetitions.
+   The genes used for the creation of the UMAPs coordinates are the union of genes deriving from the 293 cell types that managed to annotate at least 50 cells without repetitions.
 
 Workflow 
 ========
