@@ -3,12 +3,13 @@ Inputs formats
 
 SCALT_AnnotaionListsBuilder.py demands two inputs:
 
-1. a scRNA seq row counts matrix. The matrix must be in .**tsv** extension;
-2. a table having **one column** in which the annotation of each cell present in the counts is reported.
+1. a scRNA seq raw counts matrix. The matrix must be in .**tsv** extension;
+2. a table having **one column** reporting the annotation of each cell present in the counts.
 
 The counts matrix must present genes on the rows and cells on the columns. The first row of the matrix must contain the ids of each cell while the first column must provide the gene ids written either as **gene symbol** or **ensembl id**. 
+There must be a 1:1 correspondence between the columns count matrix and the entries of the annotation.
 
-To see an example of the table, see the section **SCALT: CLASSIFICATION - Inputs & Outputs** of this manual.
+To see an example of the table, see the section **SCALT: CLASSIFICATION - Inputs and Outputs** of this manual.
 
 An example of the annotation table is reported here:
 
@@ -50,8 +51,9 @@ The documentation should appear as follows:
                                       Sample Annotation
 
 
-1. **Sample** is the first positional argument and addresses the name of the counts matrix;
+1. **Sample** is the first positional argument and the name of the counts matrix must be indicated;
 2. **Annotation** is the second positional argument and refers to the name of the annotation table;
+3. **-h** or **--help** show the inputs and parameters required;
 3. **-Boo** or **--Boostraps** indicates the number of boostrap samples to generate. The default number is **100**;
 4. **-Cells** or **--Cells** specifies the number of cells to pick randomly per each cell type during the probability inference process. By default, the number is set to **100**;
 5. **-Genes** or **--Genes** refers to the number of genes that the final cell type lists of genes must contain at the end. The default number is **100**;
@@ -154,7 +156,7 @@ Outputs
 The tool returns two output:
 
 1. a directory called **custom** containing the final lists of genes;
-2. a directory named **AnnolistsBuilder_results** hosting a collection of metadata.
+2. a directory named **AnnolistsBuilder_results** hosting a collection of supplementary results and metadata.
 
 The metadata consists in a series of files and directories which are produced automatically during the process and were utilized for the generation of the final lists:
   
@@ -166,7 +168,7 @@ The metadata consists in a series of files and directories which are produced au
 6. **genesProbabilities_ratios.tsv** is a tab separated file reporting the ratios between the two previously mentioned probabilities;
 7. **genesRanking.tsv** show the ranking of the genes on the basis of the ratios reported in the genesProbabilities_ratios.tsv file;
 8. **genes_entropy.tsv** gives the entropy of each gene calculated over the probabilites of a gene to be expressed in any cell type;
-9. **genes2remove.tsv** lists the genes to remove from the final lists;
+9. **genes2remove.tsv** contains the genes to remove from the final lists;
 10. **cellTypes_fromAnnotationHeatmap.png** is an heatmap showing the percentage of overlap among each couple of final cell type specific list of genes;
 11. **TABLE_OF_GENES.tsv** is a simple tabular file reporting the genes from the counts in the proper order.
 
