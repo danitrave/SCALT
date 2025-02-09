@@ -1,16 +1,16 @@
 Welcome to SCALT's documentation!
 =================================
 
-**SCALT** (Single Cell Annotation Likelihood Tool) is an innovative tool which classifies cells from single cell RNA seq experiments at single cell resolution level taking the advantage of a maximum likelihood-based approach and a collection of pre-compiled cell type specific lists of genes constructed by extensive re-analysis of comprehensive and expert curated catalogues. 
+**SCALT** (Single Cell Annotation Likelihood Tool) is an innovative tool which classifies cells from single cell RNA seq experiments at single cell resolution level combining a likelihood-based approach and a collection of pre-compiled cell type specific lists of genes constructed through an extensive re-analysis of comprehensive and expert curated catalogues. 
 
-The application does not require any **clustering**, **dimensionality reduction** or **manual annotation**.
+The tool does not require any **clustering**, **dimensionality reduction** or **manual annotation** and cells are annotated at single cell level.
+
+Beyond clasification, SCALT arranges additional utilities for eventually handling problems related to the analysis of single cell RNA sequencing data found on a daily:
+
+1. build estensive cell type specific **lists of genes** in a **deterministic** fashion starting from a **counts matrix** and the correspoding **annotation** for each cell;
+2. ascertain the **similarity** and **reliability** of the classification of the cell types used to generate the lists and eventually suggesting an **operative definition** in case of highly similar annotations.
 
 For further details, we advise to read the paper available at **DOI**
-
-As mentioned in the paper, SCALT is composed of other parallel utilities that allow to perform more complex analysis such as:
-
-1. build cell type specific **lists of genes**  in a **deterministic** fashion starting from a **counts matrix** and the correspoding **annotation** for each cell;
-2. build cell type specific **lists of genes** starting from a **count matrix** and a gathering of **user-defined** cell type specific lists of genes making the use of an **hypergeometric** test.
 
 If you want to learn more about, please see the manual for point to point for instructions and tips.
 
