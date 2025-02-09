@@ -191,7 +191,7 @@ The documentation should appear as follows:
 4. **-Notation** or **--Notation** is the type of gene notation present in the counts. The defaul is **ensembl id**. Instead, write **gene_symbol** to switch to the gene symbol nomenclature;
 5. **-Types** or **--Types** is the name of the directory containing the lists of the cell types to use in the likelihood test. By default, only the 293 pre-compiled lists (DISCO, HPA) are used. To use only the custom lists generated from annotation, insert **custom**;
 6. **-CPUs** or **--CPUs** is number of processors employed. The default is **1**;
-6. **-pvalue** or **--pvalue** indicates the significance level corresponding to the likelihood difference that there must be between the most signficant classification and the other pluasible ones in order to unequivocally annotate a cell to a type. If the likelihood difference is not reached, the cell will be classified as **multiassigned**. By default, the p-value threshold is **0.05** and corresponds to a likelihood difference of 6. Set the threshold to **0.01** to increase the stringency of the likelihood difference up to 9.  
+7. **-pvalue** or **--pvalue** indicates the significance level corresponding to the likelihood difference that there must be between the most signficant classification and the other pluasible ones in order to unequivocally annotate a cell to a type. If the likelihood difference is not reached, the cell will be classified as **multiassigned**. By default, the p-value threshold is **0.05** and corresponds to a likelihood difference of 6. Set the threshold to **0.01** to increase the stringency of the likelihood difference up to 9.  
 
 Run SCALT.py
 =========
