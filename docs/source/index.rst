@@ -46,7 +46,7 @@ If you want to learn more about, please see the manual for point to point for in
 
 .. toctree::
    :maxdepth: 2
-   :caption: SCALT: Similarity through Mutual Information
+   :caption: SCALT: Mutual Information
    
    mutual_info.rst
 
