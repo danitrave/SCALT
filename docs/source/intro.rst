@@ -16,4 +16,4 @@ By default, SCALT classifies each cell to one of the **293** pre-defined cell ty
 The outpus are:
 
 1. a **REPORT.html** file reporting a collection of plots that summarize the results of the experiment;
-2. a directory called **results_directory** which contains all the metadata originated from the analysis. 
+2. a directory containing additional results and metadata originated from the analysis. By default, the name of the directory is **results_directory**. 
