@@ -28,12 +28,6 @@ If you want to learn more about, please see the manual for point to point for in
 
 .. toctree::
    :maxdepth: 2
-   :caption: Databases
-   
-   databases.rst
-
-.. toctree::
-   :maxdepth: 2
    :caption: SCALT: Classification
    
    classification.rst
