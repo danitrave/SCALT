@@ -36,7 +36,7 @@ Employ mutual information to quantify cell type similarity
 
 The steps and the relative programs of SCALT are summarized in the following workflow: 
 
-.. figure:: pictures/SCALT_listsbuildNaive.png
+.. figure:: pictures/SCALT_merge.png
    :align: center
    :scale: 40%
 
