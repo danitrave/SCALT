@@ -208,7 +208,7 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data,mode,name_counts,output):
 	Two kind of umaps will be generated: 2D and 3D maps. The colors of each cells are the same of those reported in the "barplot_cellTypesAboundance.html" file.
 	Cells will be plotted following the expression defiving from the union (without replacement) of the cell types lists used for the likelihood-based annotation.'''
 
-def umapPlot(t,a,note,color_dict,M,cells_ids,onto_anno,onto_color):
+def umapPlot(t,a,note,color_dict,M,cells_ids,onto_anno,onto_color,name_counts):
     df = pd.read_csv(t,sep="\t",header=0,index_col=0)   #counts table
     anno = pd.DataFrame(a)                              #annotation of each cell from the likelihood-ratio annotation
     anno.columns=["CELL_ANNOTATION"]
@@ -306,7 +306,7 @@ def html_FinalReport(fig1,fig2,fig3,fig4,fig5,output):
 if __name__ == "__main__":
     p_values = sys.argv[1]       #table with all p-values
     expression = sys.argv[2]     #table that says if a cell has passed the genes-expression filter or not
-    counts = sys.argv[3]         #counts table
+    counts = sys.argv[3]         #counts table adjusted
     notation = sys.argv[4]       #either "ensembl_id" or "gene_symbol" 
     mode = sys.argv[5]           #either "cell_type", "custom" or "naive"
     deltas = sys.argv[6]         #table with delta values
