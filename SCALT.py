@@ -96,7 +96,7 @@ parser.add_argument("-Types",metavar="--Types",default="cell_types",help='Direct
 parser.add_argument("-CPUs",metavar="--CPUs",default="1",help='Number of processors employed.')
 #parser.add_argument("-Granularity",metavar="--Granularity",default="high",help='Level of granularity of the annotation.')
 parser.add_argument("-pvalue",metavar="--pvalue",default="0.05",help='Significance level corresponding to the likelihood defference that there must be between the most significant annotation and the other significant ones in order to unequivocally classify a cell. If the likelihood threshold is not met, the cell is classifed as "multiassigned". A p-value of 0.05 corresponds to a likelihood difference of 6. Set a p-value threshold of "0.01" to increase the stringency (likelihood difference of 9)')
-parser.add_argument("-out",metavar="--out",default="results_directory",help="Name of the directory hosting the results and metadata produced during the annotation.")
+parser.add_argument("-out",metavar="--out",default="output",help="Name of the directory hosting the results and metadata produced during the annotation.")
 
 args = vars(parser.parse_args())
 application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"],args["pvalue"],args["out"])
