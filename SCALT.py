@@ -31,9 +31,9 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
         #dirCellTypes = "low_granularity_cell_types"
     #### Decide the likelihood difference threshold depending on the p-value requested ####
     if pvalue == "0.05":
-       lik_threshold = float(6.03)
+       lik_threshold = float(6.0)
     elif pvalue == "0.01":
-       lik_threshold = float(9.03)
+       lik_threshold = float(9.23)
     else:
 	 print("Error: "+pvalue+" not legit as signficance level")
 	 return "Execution halted!"   
