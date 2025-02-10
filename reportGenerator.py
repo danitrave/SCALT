@@ -46,7 +46,7 @@ def significance_validator(R):
 
 ''' The function filter_barPlot(f) is used to generate a barplot reporting the number of cells that survived or not to the number of expressed genes filter.''' 
 
-def filter_barPlot(f):
+def filter_barPlot(f,name_counts):
     table = open(f,"r")
     d = {"Pass":0,"Not Pass":0}     #the number of cells that survived or not is collected in dictionary. If the cell is marked as "PASS", it passed the filter. "EXCLUDE" otherwise.
     for line in table:
@@ -64,12 +64,12 @@ def filter_barPlot(f):
     fig = px.bar(df,x="Class",y="Counts",text_auto='.2s',color="Class",color_discrete_map={'Pass': '#2ca25f','Not Pass': '#fdbb84'},  #plot
     title="Number of cells that survived and not survived the genes expression filter")  
     fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-    fig.write_html("barplot_survivedCells.html")        #save as an html file 
+    fig.write_html(name_counts+"_barplot_survivedCells.html")        #save as an html file 
     return fig
 
 """ The function cellTypes_barplot(T1,F1,DELTAS,THRESH) generates a barplot reporting the number of cell types identified per each cell type class."""
 
-def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data,mode):
+def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data,mode,name_counts,output):
     tsv = open(counts_data,"r")
     stop = 0
     for line in tsv:
@@ -199,9 +199,9 @@ def cellTypes_barplot(T1,F1,DELTAS,THRESH,counts_data,mode):
     fig.update_traces(textfont_size=15, textangle=0, textposition="outside", cliponaxis=False)
     fig.update_layout(xaxis_tickangle=-45,legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')
     fig.update_xaxes(tickfont_size=7)
-    fig.write_html("barplot_cellTypesAboundance.html")     #save the plot in an html file
+    fig.write_html(name_counts+"_barplot_cellTypesAboundance.html")     #save the plot in an html file
     TABLE = pd.DataFrame.from_dict({"Cell_ID":cells_ids,"Prim.Lab":primary_label,"Multi_label":multi_label,"Alt.Lab":alternative_labels},orient='columns')
-    TABLE.to_csv("outcome_annotation_table.tsv",sep="\t",header=True,index=True)
+    TABLE.to_csv(output+"_annotation_table.tsv",sep="\t",header=True,index=True)
     return fig,annotation,descrete_coloring,cells_ids,cell_ontology_annotation,descrete_coloring_ontologies
 
 ''' The function umapPlot(t,a,note,color_dict) is resposinble of generating two umaps to show the annotation outcome in a grafical fashion. 
@@ -256,7 +256,7 @@ def umapPlot(t,a,note,color_dict,M,cells_ids,onto_anno,onto_color):
     fig_2d = px.scatter(proj_2d, x="UMAP_1", y="UMAP_2",color=proj_2d.Annotation,color_discrete_map=color_dict,title="UMAP-2D")#labels={color_dict[k]:k for k in color_dict},title="UMAP-2D")
     fig_2d.update_layout(legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')   #plot
     fig_2d.update_traces(marker_size=6)
-    fig_2d.write_html("UMAP_2D.html")    #save the plot in an html file
+    fig_2d.write_html(name_counts+"_UMAP_2D.html")    #save the plot in an html file
 
     umap_3d = UMAP(n_components=3)      #calculate 3D UMAP coordinates
     proj_3d = pd.DataFrame(umap_3d.fit_transform(results_data))  #dataframe for the plot
@@ -265,11 +265,11 @@ def umapPlot(t,a,note,color_dict,M,cells_ids,onto_anno,onto_color):
     fig_3d = px.scatter_3d(proj_3d, x="UMAP_1", y="UMAP_2", z="UMAP_3",color=proj_3d.Annotation,color_discrete_map=color_dict,title="UMAP-3D")#labels={color_dict[k]:k for k in color_dict},title="UMAP-3D")
     fig_3d.update_layout(legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')   #plot
     fig_3d.update_traces(marker_size=3.5)
-    fig_3d.write_html("UMAP_3D.html")   #save the plot in an html file
+    fig_3d.write_html(name_counts+"_UMAP_3D.html")   #save the plot in an html file
     proj_2d.index=cells_ids
     proj_3d.index=cells_ids
-    proj_2d.to_csv("umap_2d_coords.tsv",sep="\t",header=True, index=True)
-    proj_3d.to_csv("umap_3d_coords.tsv",sep="\t",header=True,index=True)
+    proj_2d.to_csv(name_counts+"_umap_2d_coords.tsv",sep="\t",header=True, index=True)
+    proj_3d.to_csv(name_counts+"_umap_3d_coords.tsv",sep="\t",header=True,index=True)
 
     #### Save the umap but using the cell ontology annotation ####
     if M == "cell_types":
@@ -278,23 +278,24 @@ def umapPlot(t,a,note,color_dict,M,cells_ids,onto_anno,onto_color):
         fig_2d_onto = px.scatter(proj_2d, x="UMAP_1", y="UMAP_2",color=proj_2d.Annotation,color_discrete_map=onto_color,title="UMAP-2D cell ontologies")
         fig_2d_onto.update_layout(legend_font_size=15,legend_title_font_size=15,legend_itemsizing='constant')   #plot
         fig_2d_onto.update_traces(marker_size=6)
-        fig_2d_onto.write_html("UMAP_2D_ONTO.html")
+        fig_2d_onto.write_html(name_counts+"_UMAP_2D_ONTO.html")
     else:
         fig_2d_onto="NULL"
     return fig_2d,fig_3d,fig_2d_onto
     
 ''' The function html_FinalReport(fig1,fig2,fig3,fig4) collects all the figures previously described and generate a final html report. '''
 
-def html_FinalReport(fig1,fig2,fig3,fig4,fig5):
+def html_FinalReport(fig1,fig2,fig3,fig4,fig5,output):
+    output_name = output+"_report.html"	
     if fig5 == "NULL":
-        with open('REPORT.html', 'w') as html:
+        with open(output_name, 'w') as html:
             html.write(fig1.to_html(full_html=False, include_plotlyjs='cdn'))
             html.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
             html.write(fig3.to_html(full_html=False, include_plotlyjs='cdn'))
             html.write(fig4.to_html(full_html=False, include_plotlyjs='cdn'))
         html.close()
     else:
-        with open('REPORT.html', 'w') as html:
+        with open(output_name, 'w') as html:
             html.write(fig1.to_html(full_html=False, include_plotlyjs='cdn'))
             html.write(fig2.to_html(full_html=False, include_plotlyjs='cdn'))
             html.write(fig3.to_html(full_html=False, include_plotlyjs='cdn'))
@@ -310,7 +311,9 @@ if __name__ == "__main__":
     mode = sys.argv[5]           #either "cell_type", "custom" or "naive"
     deltas = sys.argv[6]         #table with delta values
     lik_threshold = float(sys.argv[7])  #likelihood difference threshold 
-    survival_Barplot = filter_barPlot(expression)
-    cellTypeQuantity_Barplot = cellTypes_barplot(p_values,expression,deltas,lik_threshold,counts,mode)
-    umaps = umapPlot(counts,cellTypeQuantity_Barplot[1],notation,cellTypeQuantity_Barplot[2],mode,cellTypeQuantity_Barplot[3],cellTypeQuantity_Barplot[-2],cellTypeQuantity_Barplot[-1])
-    html_FinalReport(survival_Barplot,cellTypeQuantity_Barplot[0],umaps[0],umaps[1],umaps[2])
+    output = sys.argv[8]    #name of the output table, report and directory	
+    name_counts = counts.split(".tsv")[0]	
+    survival_Barplot = filter_barPlot(expression,name_counts)
+    cellTypeQuantity_Barplot = cellTypes_barplot(p_values,expression,deltas,lik_threshold,counts,mode,name_counts,output)
+    umaps = umapPlot(counts,cellTypeQuantity_Barplot[1],notation,cellTypeQuantity_Barplot[2],mode,cellTypeQuantity_Barplot[3],cellTypeQuantity_Barplot[-2],cellTypeQuantity_Barplot[-1],name_counts)
+    html_FinalReport(survival_Barplot,cellTypeQuantity_Barplot[0],umaps[0],umaps[1],umaps[2],output)
