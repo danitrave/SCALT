@@ -34,6 +34,12 @@ If you want to learn more about, please see the manual for point to point for in
 
 .. toctree::
    :maxdepth: 2
+   :caption: PBMC 3K tutorial
+   
+   tutorial_pbmc.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: SCALT: Advanced
    
    advanced.rst
