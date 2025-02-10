@@ -25,10 +25,18 @@ start_time = datetime.now()
     classification based on a likelihood ratio method. The function requires the following inputs: the raw data counts table; the minimum number of genes that a
     cell must presnt to be classifed; the kind of gene notation used; the cell types used in the annotation process; the number of processors used. """
 
-def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity,lik_threshold):
+def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_dir):
     #### Set the level of granilarity of the cell type specific lists of genes ####
-    if granularity == "low":
-        dirCellTypes = "low_granularity_cell_types"
+    #if granularity == "low":
+        #dirCellTypes = "low_granularity_cell_types"
+    #### Decide the likelihood difference threshold depending on the p-value requested ####
+    if pvalue == "0.05":
+       lik_threshold = float(6.03)
+    elif pvalue == "0.01":
+       lik_threshold = float(9.03)
+    else:
+	 print("Error: "+pvalue+" not legit as signficance level")
+	 return "Execution halted!"   
 
     #### Pre-process the input such to be suitable for the application run ####
     if counts.endswith("_adj.tsv"):
@@ -39,6 +47,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity
             os.system("python3 scripts/inputPreparation.py "+counts+" None likelihood "+notation+" "+dirCellTypes)   #adjust the input file
         except:
             print("Error: the input preparation program could not be executed!")
+	    return "Execution halted!" 
 
         name_counts = counts.split(".tsv")[0]
         counts = name_counts+"_adj.tsv"
@@ -47,7 +56,8 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity
     try:
         os.system("python3 scripts/likelihood_ratio_test.py "+counts+" "+gene_threshold+" "+notation+" "+dirCellTypes+" "+cpus)
     except:
-        print("Error: Run failed!")
+        print("Error: Run failed. SCALT could not run the likelihood annotation step!")
+	return "Execution halted!"    
 
     #### Generate the final report ####
     
@@ -55,37 +65,41 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,granularity
         os.system("python3 reportGenerator.py p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes+" deltas.tsv "+lik_threshold)
     except:
         print("Error: the report could not be generated!")
+	return "Execution halted!"    
 
     #### Group all the results in a unique directry except the report ####
 
     try:
-        os.system("mkdir ./results_directory")
+        os.system("mkdir ./"+out_dir)
     except:
-        print("Error: could not generate the directory ./results_directory")
+        print("Error: could not generate the directory ./"+out_dir)
+	return "Execution halted!"    
     
     try:
-        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" results_directory/")
+        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+out_dir+"/")
     except:
         print("Error: cannot move the files in the final results_directory/")
-
+	return "Execution halted!"    
+    return "Success! Execution completed!"
 
 ''' Positional arguments '''
-parser = argparse.ArgumentParser(description='''SCALT: Single Cell Annotation Likelihood Tool. SCALT introduces a paradigm-shift for the analysis of scRNAseq data. 
-								Cells are annotated to a specific type at individual level, by using a simple but elegant method based on maximum likelihood, without the need
-								for clustering, dimensionality reduction or manual annotation. SCALT leverages a collection of 471 lists of cell-type specific genes, 
-								constructed by extensive re-analysis of comprehensive and expert curated catalogues (HPA and DISCO)''')
+parser = argparse.ArgumentParser(description='''SCALT: Single Cell Annotation Likelihood Tool. SCALT introduces a paradigm-shift for the analysis of scRNAseq data where. 
+								cells are annotated at individual level, by using a simple but elegant method based on likelihood, without the need
+								for clustering, dimensionality reduction or manual annotation. Currently, SCALT leverages a collection of 293 lists of cell-type specific genes, 
+								operatively defined by an by extensive re-analysis of comprehensive and expert curated catalogues (HPA and DISCO)''')
 parser.add_argument("Counts",metavar="Sample",help="Sample counts")     
 
 '''' Optional arguments '''
-parser.add_argument('-Min',metavar='--Threshold',default="250",help="Minimum number of genes that a cell must express to be classified. The default value is 250.")   
+parser.add_argument('-Min',metavar='--Min',default="250",help="Minimum number of genes that a cell must express to be classified. The default value is 250.")   
 parser.add_argument("-Notation",metavar="--Notation",default="ensembl_id",help='Type of gene notation to use. The defaul is "ensembl_id". Write "gene_symbol" to switch to gene symbol notation. Note: gene notation must coincide with the one present in the counts table')
-parser.add_argument("-Types",metavar="--Types",default="cell_types",help='Directory name containg the lists of the cell types to be used in the likelihood test. By default, only the pre-compiled lists (DISCO, HPA) are used. If the user wants to use only the custom ones generated from annotation, insert "custom". Finally, if the users wants to use only the custom ones from user-defined lists, insert "naive".')
+parser.add_argument("-Types",metavar="--Types",default="cell_types",help='Directory name containg the lists of the cell types to be used in the likelihood test. By default, only the pre-compiled lists (DISCO, HPA) are used. If the user wants to use only the custom ones generated from annotation, insert "custom".')
 parser.add_argument("-CPUs",metavar="--CPUs",default="1",help='Number of processors employed.')
-parser.add_argument("-Granularity",metavar="--Granularity",default="high",help='Level of granularity of the annotation.')
-parser.add_argument("-Diff",metavar="--Diff",default="6.03",help='Likelihood difference (Absolute value) that the first and second most significant annotations must have to ununbiguously assign a cell. Wherever the threshold is not respected, the cell will be classified as "Multiassigned". The default value if 6.03 that corresponds to p-value significance of 0.05. The higher the value, the significance stringency increases.')
+#parser.add_argument("-Granularity",metavar="--Granularity",default="high",help='Level of granularity of the annotation.')
+parser.add_argument("-pvalue",metavar="--pvalue",default="0.05",help='Significance level corresponding to the likelihood defference that there must be between the most significant annotation and the other significant ones in order to unequivocally classify a cell. If the likelihood threshold is not met, the cell is classifed as "multiassigned". A p-value of 0.05 corresponds to a likelihood difference of 6. Set a p-value threshold of "0.01" to increase the stringency (likelihood difference of 9)')
+parser.add_argument("-out",metavar="--out",default="results_directory",help="Name of the directory hosting the results and metadata produced during the annotation.")
 
 args = vars(parser.parse_args())
-application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"],args["Granularity"],args["Diff"])
+application_run(args["Counts"],args["Min"],args["Notation"],args["Types"],args["CPUs"],args["pvalue"],args["out"])
 
 end_time = datetime.now()
 print('Duration complete tool run: {}'.format(end_time - start_time))
