@@ -62,7 +62,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
     #### Generate the final report ####
     
     try:
-        os.system("python3 reportGenerator.py "+name_counts+"_adj_p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes+" "+name_counts+"_adj_deltas.tsv "+lik_threshold)
+        os.system("python3 reportGenerator.py "+name_counts+"_adj_p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes+" "+name_counts+"_adj_deltas.tsv "+lik_threshold+" "+out_dir)
     except:
         print("Error: the report could not be generated!")
 	return "Execution halted!"    
