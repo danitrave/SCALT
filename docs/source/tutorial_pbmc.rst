@@ -11,6 +11,7 @@ Once obtained a file in tsv format, the only command needed to run SCALT is the 
    python3 SCALT.py countsPBMC3K.tsv -Notation ensembl_id  
 
 The output consists in a series of files and metadata table that should provide a complete picture of the composition of cells present in the sample according to SCALT.
+
 The first file is a **report** in html format comprehensive of series of pictures reported below.
 
 .. note::
