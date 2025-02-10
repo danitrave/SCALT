@@ -62,7 +62,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
     #### Generate the final report ####
     
     try:
-        os.system("python3 reportGenerator.py p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes+" deltas.tsv "+lik_threshold)
+        os.system("python3 reportGenerator.py "+name_counts+"_adj_p_values.tsv "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+notation+" "+dirCellTypes+" "+name_counts+"_adj_deltas.tsv "+lik_threshold)
     except:
         print("Error: the report could not be generated!")
 	return "Execution halted!"    
@@ -74,12 +74,17 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
     except:
         print("Error: could not generate the directory ./"+out_dir)
 	return "Execution halted!"    
-    
+    files_names_out = " ".join([name_counts+z for z in ["_umap_2d_coords.tsv","_umap_3d_coords.tsv","_UMAP_2D_ONTO.html","_barplot_cellTypesAboundance.html","_barplot_survivedCells.html","_adj_deltas.tsv","_adj_p_values.tsv","_UMAP_2D.html","_UMAP_3D.html"]])
     try:
-        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+out_dir+"/")
+	os.system("mv "+files_names_out+" "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+out_dir+"/")    
     except:
-        print("Error: cannot move the files in the final results_directory/")
+	print("Error: cannot move files in the "+out_dir+"/ directory")
 	return "Execution halted!"    
+    #try:
+        #os.system("mv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+out_dir+"/")
+    #except:
+        #print("Error: cannot move the files in the final results_directory/")
+	#return "Execution halted!"    
     return "Success! Execution completed!"
 
 ''' Positional arguments '''
