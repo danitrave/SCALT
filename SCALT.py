@@ -76,7 +76,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
 	return "Execution halted!"    
     
     try:
-        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv originalTables_zipped.zip p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+out_dir+"/")
+        os.system("mv outcome_annotation_table.tsv umap_2d_coords.tsv umap_3d_coords.tsv UMAP_2D_ONTO.html barplot_cellTypesAboundance.html barplot_survivedCells.html deltas.tsv p_values.tsv UMAP_2D.html UMAP_3D.html "+name_counts+"_adj_genesExpressed_filter.tsv "+counts+" "+out_dir+"/")
     except:
         print("Error: cannot move the files in the final results_directory/")
 	return "Execution halted!"    
