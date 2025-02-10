@@ -1,7 +1,7 @@
 PBMC 3K tutorial
 ================
 
-The tutorial consist in analyzing a sample of perifieral blood mononuclear cells (PBMCs) that can be downloaded from the Seurat vignette available at the following link 
+The tutorial consist in analyzing a sample of perifieral blood mononuclear cells (PBMCs) that can be downloaded from the Seurat vignette available at the following `link <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_. 
 
 .. figure:: pictures/countsPBMC_adj_UMAP_2D.html
    :align: center
