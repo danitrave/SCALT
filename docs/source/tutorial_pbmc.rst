@@ -24,7 +24,7 @@ This barplot repors the number of cells that survived the initial expression fil
 
 .. figure:: pictures/barplot1.png
    :align: center
-   :scale: 30%
+   :scale: 70%
 
 Cell type aboundance barplot
 ----------------------------
@@ -32,7 +32,7 @@ The following barplot shows the relative aboundance of each cell type annotated 
 
 .. figure:: pictures/barplot2.png
    :align: center
-   :scale: 30%
+   :scale: 70%
 
 UMAP 2-dimensions
 -----------------
@@ -40,7 +40,7 @@ The plot reported below is a UMAP in 2 dimensions depicting the cells and their 
 
 .. figure:: pictures/umap2d.png
    :align: center
-   :scale: 30%
+   :scale: 70%
 
 UMAP 3-dimensions
 -----------------
@@ -48,7 +48,7 @@ The following UMAP reports the same information previously described but visuali
 
 .. figure:: pictures/umap3d.png
    :align: center
-   :scale: 30%
+   :scale: 70%
 
 UMAP 2-dimensions - cell ontologies
 -----------------------------------
@@ -56,7 +56,7 @@ Finally, the last picture present in the report is a UMAP in 2 dimensions where 
 
 .. figure:: pictures/umap_onto.png
    :align: center
-   :scale: 30%
+   :scale: 70%
 
 Cell annotation table
 ---------------------
@@ -65,5 +65,5 @@ A piece of the table reporting the results for the first 10 cells of the 3K PBMC
 
 .. figure:: pictures/anno_table_pbmc3k.png
    :align: center
-   :scale: 30%
+   :scale: 70%
 
