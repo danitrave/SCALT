@@ -13,6 +13,10 @@ Once obtained a file in tsv format, the only command needed to run SCALT is the 
 The output consists in a series of files and metadata table that should provide a complete picture of the composition of cells present in the sample according to SCALT.
 The first file is a **report** in html format comprehensive of series of pictures reported below.
 
+.. note::
+
+   We running the tutorial, you might find different colors associated to the different cell types. It is totally normal since, each time, SCALT assigns randomly colors when is executed.
+
 Survived cells barplot
 ----------------------
 This barplot repors the number of cells that survived the initial expression filter that annotates a cell as **unclassified** is it does not a minimum number of genes (by defaul 250).
