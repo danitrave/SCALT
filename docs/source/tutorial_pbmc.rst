@@ -57,3 +57,13 @@ Finally, the last picture present in the report is a UMAP in 2 dimensions where 
 .. figure:: pictures/umap_onto.png
    :align: center
    :scale: 50%
+
+Cell annotation table
+---------------------
+The second major output of SCALT is a tabular file in tsv format highlighting the classification outcome assigned to each cell by the tool. 
+A piece of the table reporting the results for the first 10 cells of the 3K PBMCs sample is reported below.
+
+.. figure:: pictures/anno_table_pbmc3k.png
+   :align: center
+   :scale: 50%
+
