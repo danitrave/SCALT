@@ -145,10 +145,13 @@ An example of the input file is reported below.
      - 1
      - 1
 
-The application returns two outputs:
+The application returns three outputs:
 
 1. a report file in **.html** format;
-2. a directory (named by default as **results_directory**) hosting a collection results and metadata produced upon classification.
+2. a tabular file in **.tsv** format summarizing the outcome of the classification per each cell
+3. a directory (named by default as **output**) hosting a collection results and metadata produced upon classification.
+
+More details about the report and tabular outputs can be found in the **PBMC 3K tutorial**
 
 The directory contains a series of files which are produced automatically during the classification step and are required for the generation of the report. Among them, we find:
 
@@ -158,8 +161,7 @@ The directory contains a series of files which are produced automatically during
 4. **_adj.tsv** file. Counts table after input set-up performed by SCALT.py by default;
 5. **_adj_genesExpressed_filter.tsv** file. Tabular file reporting either **PASS** or **EXCLUDE** if the cell expresses at least the minimum number of genes set in the -Min (or --Threshold) parameter or not;
 6. **barplot_cellTypesAboundance.html**, **barplot_survivedCells.html**, **UMAP_2D.html** and **UMAP_3D.html**. Collection of plots visualized in the report file.
-7. **outcome_annotation_table.tsv**. A table summarizing the outcome of the classification per each cell. More datails can be found in the **PBMC 3K tutorial**
-8. **umap_2d_coords.tsv** and **umap_3d_coords.tsv**. Tabular files reporting respectively the coordinates of the 2-dimensional and 3-dimensional UMAPs present in the report file.
+7. **umap_2d_coords.tsv** and **umap_3d_coords.tsv**. Tabular files reporting respectively the coordinates of the 2-dimensional and 3-dimensional UMAPs present in the report file.
 
 
 SCALT parameters
@@ -183,7 +185,7 @@ The documentation should appear as follows:
 
   usage: SCALT.py [-h] [-Min --Threshold] [-Notation --Notation]
              [-Types --Types] [-CPUs --CPUs] [-pvalue --pvalue]
-                Sample
+               [-out --out] Sample
 
 1. **Sample** is the only positional argument of the tool. It represents the scRNA seq counts matrix file;
 2. **-h** or **--help** shows the documentation.
@@ -191,7 +193,8 @@ The documentation should appear as follows:
 4. **-Notation** or **--Notation** is the type of gene notation present in the counts. The defaul is **ensembl id**. Instead, write **gene_symbol** to switch to the gene symbol nomenclature;
 5. **-Types** or **--Types** is the name of the directory containing the lists of the cell types to use in the likelihood test. By default, only the 293 pre-compiled lists (DISCO, HPA) are used. To use only the custom lists generated from annotation, insert **custom**;
 6. **-CPUs** or **--CPUs** is number of processors employed. The default is **1**;
-7. **-pvalue** or **--pvalue** indicates the significance level corresponding to the likelihood difference that there must be between the most signficant classification and the other pluasible ones in order to unequivocally annotate a cell to a type. If the likelihood difference is not reached, the cell will be classified as **multiassigned**. By default, the p-value threshold is **0.05** and corresponds to a likelihood difference of 6. Set the threshold to **0.01** to increase the stringency of the likelihood difference up to 9.  
+7. **-pvalue** or **--pvalue** indicates the significance level corresponding to the likelihood difference that there must be between the most signficant classification and the other pluasible ones in order to unequivocally annotate a cell to a type. If the likelihood difference is not reached, the cell will be classified as **multiassigned**. By default, the p-value threshold is **0.05** and corresponds to a likelihood difference of 6. Set the threshold to **0.01** to increase the stringency of the likelihood difference up to 9;
+8. **-out** or **--out** is the name referring to the final output files. By default is **output**.
 
 Run SCALT.py
 =========
