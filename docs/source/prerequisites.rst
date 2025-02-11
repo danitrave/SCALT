@@ -1,7 +1,7 @@
 Conda Installation
 =====
  
-SCALT is a command-line running tool written in python, R and bash programming language. 
+SCALT is a command-line running tool written in python, R and bash programming language that, currently, runs on UNIX systems only. 
 Given that it requires detailed packages with specific versions, we decided to implement SCALT on a **Conda** environment.
 
 To install Conda, visit the `Conda Installation Page <https://conda.io/projects/conda/en/latest/user-guide/install/index.html>`_ and follow the instructions step by step for the regular installation on your operating system.
@@ -10,7 +10,7 @@ To install Conda, visit the `Conda Installation Page <https://conda.io/projects/
 SCALT download
 ==============
 
-Subsequent to the installation of conda, make sure that conda is activated with the following command:
+Subsequent to the installation of Conda, make sure that Conda is activated with the following command:
 
 ::
 
