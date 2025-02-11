@@ -18,14 +18,14 @@ The documentation should appear as follows:
 ::
 
    usage: SCALT_merge.py [-h] [-Notation --Notation] [-Genes --Genes] 
-                         [-Boo --Bootstrap] [-out --out] Lists
+                         [-Boo --Boo] [-out --out] Lists
 
 
 1. **Lists** is the only positional argument and refers to the path where the **custom** directory is located;
-2. **-h** or **--help** show the documentation and the parameters;
+2. **-h** or **--help** show the manual;
 3. **-Notation** is used to underline the kind of gene notation present in the counts. The user can choose between **gene_symbol** or **ensembl_id**. By default, ensembl_id is set;
 4. **-Genes** or **--Genes** refers to the number of genes contained in each cell type specific lists of genes. The default value is 100;
-5. **-Boo** or **--Boostraps** indicates the number of boostrap samples available The default number is **100**;
+5. **-Boo** or **--Boo** indicates the number of boostrap samples available The default number is **100**;
 6. **-out** or **--outs** specifies the name of the name of the final report. By default the name is **merging_diagnose.txt**
 
 
@@ -40,7 +40,7 @@ Leaving default parameters, the basic comand appears as follows:
 
    python3 SCALT_merge.py custom
 
-By default, it is assumed that 100 bootstrap samples are available and that each cell type specific list of genes in the custom directory has 100 genes. Moreover, ensembl ids are assumed and the final name of the report withb be **mutual_information_diagnose.txt**.
+By default, it is assumed that 100 bootstrap samples are available and that each cell type specific list of genes in the custom directory has 100 genes. Moreover, ensembl ids are assumed and the final name of the report with be **mutual_information_diagnose.txt**.
 
 If the **gene symbol** is present in the cell type specific lists of genes, the notation must be specified as follows:
 
@@ -64,7 +64,7 @@ Or:
 
 ::
 
-   python3 SCALT_merge.py custom --Boostraps 80
+   python3 SCALT_merge.py custom --Boo 80
 
 
 The same process can be translated for the number of genes available in the cell type defyning lists:
@@ -102,7 +102,7 @@ Or:
 
 ::
 
-   python3 SCALT_merge.py custom --Notation gene_symbol --Boostraps 80 --Genes 75 --out report_one.txt
+   python3 SCALT_merge.py custom --Notation gene_symbol --Boo 80 --Genes 75 --out report_one.txt
 
 The order of parameters is irrelevant.
 
