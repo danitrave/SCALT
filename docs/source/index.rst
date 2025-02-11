@@ -5,7 +5,7 @@ Welcome to SCALT's documentation!
 
 The tool does not require any **clustering**, **dimensionality reduction** or **manual annotation** and cells are annotated at single cell level.
 
-Beyond clasification, SCALT arranges additional utilities for eventually handling problems related to the analysis of single cell RNA sequencing data found on a daily:
+Beyond clasification, SCALT arranges additional utilities for eventually handling problems related to the analysis of single cell RNA sequencing data found on a daily basis:
 
 1. build estensive cell type specific **lists of genes** in a **deterministic** fashion starting from a **counts matrix** and the correspoding **annotation** for each cell;
 2. ascertain the **similarity** and **reliability** of the classification of the cell types used to generate the lists and eventually suggesting an **operative definition** in case of highly similar annotations.
