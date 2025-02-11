@@ -230,7 +230,7 @@ Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --Threshold 500
+   python3 SCALT.py read_counts.tsv --Min 500
 
 In addition, the computational time can be reduced if the number of processors is increased as reported:
 
