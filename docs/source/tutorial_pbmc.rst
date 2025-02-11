@@ -65,7 +65,7 @@ A piece of the table reporting the results for the first 10 cells of the 3K PBMC
 
 .. figure:: pictures/anno_table_pbmc3k.png
    :align: center
-   :scale: 20%
+   :scale: 50%
 
 1. **Cell_ID** is the barcode of each cell;
 2. **Prim.Lab** indicates which was the most significant annotation according to SCALT. When none of the lists recapitulates the cell type, the annotation found in this column is **unclassified**;
