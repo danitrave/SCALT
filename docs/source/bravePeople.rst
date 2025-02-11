@@ -19,7 +19,7 @@ Or
 
 ::
 
-  python3 SCALT.py new_read_counts.tsv --Types custom --Notation gene_symbol --Threshold 300 --CPUs 2
+  python3 SCALT.py new_read_counts.tsv --Types custom --Notation gene_symbol --Min 300 --CPUs 2
 
 Changing the paratemeter value of **Types** to **custom** forces SCALT.py to use the lists of genes originated from the annotation file as reference lists for classification.
 
