@@ -57,7 +57,7 @@ parser.add_argument("Dir",metavar="Lists",help="Path of the cell type specific l
 ''' Optional arguments '''
 parser.add_argument("-Notation",metavar="--Notation",default="ensembl_id",help='Type of gene notation to use. The defaul is "ensembl_id". Write "gene_symbol" to switch to gene symbol notation. Note: gene notation must coincide with the one present in the counts table')
 parser.add_argument("-Genes",metavar="--Genes",default="100",help='Number of genes that the lists will have at the end. The default value is 100.')
-parser.add_argument("-Boo",metavar="--Bootstrap",default="100",help='Number of bootstraps samples. The default value is 100.')
+parser.add_argument("-Boo",metavar="--Boo",default="100",help='Number of bootstraps samples. The default value is 100.')
 parser.add_argument("-out",metavar="--out",default="merging_diagnose.txt",help='Name for the output report.')
 args = vars(parser.parse_args())
 merge_run(args["Dir"],args["Notation"],args["Genes"],args["Boo"],args["out"])
