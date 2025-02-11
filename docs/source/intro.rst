@@ -17,4 +17,4 @@ The outpus are:
 
 1. a **report** file in HTML format reporting a collection of plots that summarize the results of the experiment;
 2. a table in TSV format highlighting the classification outcome for each singular cell;
-3. a directory containing additional results and metadata originated from the analysis. By default, the name of the directory is **results_directory**. 
+3. a directory containing additional results and metadata originated from the analysis. By default, the name of the directory is **output**. 
