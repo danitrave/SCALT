@@ -3,7 +3,7 @@ Inputs formats
 
 SCALT_AnnotaionListsBuilder.py demands two inputs:
 
-1. a scRNA seq raw counts matrix. The matrix must be in .**tsv** extension;
+1. a scRNA seq raw counts matrix. The matrix must be in **.tsv** extension;
 2. a table having **one column** reporting the annotation of each cell present in the counts.
 
 The counts matrix must present genes on the rows and cells on the columns. The first row of the matrix must contain the ids of each cell while the first column must provide the gene ids written either as **gene symbol** or **ensembl id**. 
@@ -45,7 +45,7 @@ The documentation should appear as follows:
 
 ::
 
-   usage: SCALT_AnnotaionListsBuilder.py [-h] [-Boo --Boostraps] [-Cells --Cells]
+   usage: SCALT_AnnotaionListsBuilder.py [-h] [-Boo --Boo] [-Cells --Cells]
                                       [-Genes --Genes] [-Notation --Notation]
                                       [-CPUs --CPUs]
                                       Sample Annotation
@@ -53,10 +53,10 @@ The documentation should appear as follows:
 
 1. **Sample** is the first positional argument and the name of the counts matrix must be indicated;
 2. **Annotation** is the second positional argument and refers to the name of the annotation table;
-3. **-h** or **--help** show the inputs and parameters required;
-3. **-Boo** or **--Boostraps** indicates the number of boostrap samples to generate. The default number is **100**;
+3. **-h** or **--help** show the manual;
+3. **-Boo** or **--Boo** indicates the number of boostrap samples to generate. The default number is **100**;
 4. **-Cells** or **--Cells** specifies the number of cells to pick randomly per each cell type during the probability inference process. By default, the number is set to **100**;
-5. **-Genes** or **--Genes** refers to the number of genes that the final cell type lists of genes must contain at the end. The default number is **100**;
+5. **-Genes** or **--Genes** refers to the number of genes that the final cell type lists of genes must contain in the end. The default number is **100**;
 6. **-Notation** is used to underline the kind of gene notation present in the counts. The user can choose between **gene_symbol** or **ensembl_id**. By default, ensembl_id is set;
 7. **-CPUs** or **--CPUs** indicates the number of processors to use. By default, **1** is used.
 
@@ -96,7 +96,7 @@ Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Boostraps 80
+   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Boo 80
 
 The number of cell per cell type included in each boostrap sample can be modified making usage of the proper parameter:
 
@@ -159,15 +159,14 @@ The tool returns two output:
 2. a directory named **AnnolistsBuilder_results** hosting a collection of supplementary results and metadata.
 
 The metadata consists in a series of files and directories which are produced automatically during the process and were utilized for the generation of the final lists:
-  
-1. **originalTables_zipped.zip** is a zipped repository containing the original input data;
-2. **groupped_cell_types** is the directory that contains the counts matrix groupped by cell type. Each tsv file groups the cells annotated with same cell type;
-3. **boostraps_samples** is the folder in which all the boostrap samples are saved;
-4. **genesGeneral_probabilities.tsv** is a tabular file that reports the probability of each gene to be expressed in a generical cell estimated from the boostrap samples;
-5. **genesCellTypes_probabilities.tsv** is a table that provides the the probability of each gene to be expressed in any cell type from the annotation. As already mentioned, the probability is estimated from the boostrap samples;
-6. **genesProbabilities_ratios.tsv** is a tab separated file reporting the ratios between the two previously mentioned probabilities;
-7. **genesRanking.tsv** show the ranking of the genes on the basis of the ratios reported in the genesProbabilities_ratios.tsv file;
-8. **genes_entropy.tsv** gives the entropy of each gene calculated over the probabilites of a gene to be expressed in any cell type;
+
+1. **groupped_cell_types** is the directory that contains the counts matrix groupped by cell type. Each tsv file groups the cells annotated with same cell type;
+2. **boostraps_samples** is the folder in which all the boostrap samples are saved;
+3. **genesGeneral_probabilities.tsv** is a tabular file that reports the probability of each gene to be expressed in a generical cell estimated from the boostrap samples;
+4. **genesCellTypes_probabilities.tsv** is a table that provides the the probability of each gene to be expressed in any cell type from the annotation. As already mentioned, the probability is estimated from the boostrap samples;
+5. **genesProbabilities_ratios.tsv** is a tab separated file reporting the ratios between the two previously mentioned probabilities;
+6. **genesRanking.tsv** show the ranking of the genes on the basis of the ratios reported in the genesProbabilities_ratios.tsv file;
+7. **genes_entropy.tsv** gives the entropy of each gene calculated over the probabilites of a gene to be expressed in any cell type;
 9. **genes2remove.tsv** contains the genes to remove from the final lists;
 10. **cellTypes_fromAnnotationHeatmap.png** is an heatmap showing the percentage of overlap among each couple of final cell type specific list of genes;
 11. **TABLE_OF_GENES.tsv** is a simple tabular file reporting the genes from the counts in the proper order.
