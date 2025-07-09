@@ -1,7 +1,7 @@
 PBMC 3K tutorial
 ================
 
-The tutorial consist in analyzing a sample of perifieral blood mononuclear cells (PBMCs) that can be downloaded from the Seurat vignette available at the following `link <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_. 
+The tutorial consist in analyzing a sample of perifieral blood mononuclear cells (PBMCs) that can be downloaded from the Seurat vignette available at the following `link <https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz>`_. 
 Make sure to convert counts from a 10X to a tsv format.
 
 Once obtained a file in tsv format, the only command needed to run SCALT is the following:
