@@ -1,4 +1,4 @@
-name: SCALT
+name: SCARLET
 channels:
   - plotly
   - anaconda
@@ -286,4 +286,4 @@ dependencies:
       - scanpy==1.9.8
       - session-info==1.0.0
       - stdlib-list==0.10.0
-prefix: /home/dtraversa/anaconda3/envs/SCALT
+prefix: /home/dtraversa/anaconda3/envs/SCARLET
