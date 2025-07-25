@@ -1,23 +1,23 @@
 Inputs formats
 ==============
 
-The required input of SCALT_merge.py is the path to the **custom** directory containing the cell type specific lists of genes deriving from SCALT_AnnotationListBuilder.py.
+The required input of SCARLET_merge.py is the path to the **custom** directory containing the cell type specific lists of genes deriving from SCARLET_AnnotationListBuilder.py.
 This input must be specified as positional argument of the tool.
 
 Parameters
 ==========
 
-SCALT_merge.py takes the advantage of a collection of parameters that can visualized typing the following command:
+SCARLET_merge.py takes the advantage of a collection of parameters that can visualized typing the following command:
 
 :: 
 
-  python3 SCALT_merge.py -h
+  python3 SCARLET_merge.py -h
 
 The documentation should appear as follows:
 
 ::
 
-   usage: SCALT_merge.py [-h] [-Notation --Notation] [-Genes --Genes] 
+   usage: SCARLET_merge.py [-h] [-Notation --Notation] [-Genes --Genes] 
                          [-Boo --Boo] [-out --out] Lists
 
 
@@ -29,16 +29,16 @@ The documentation should appear as follows:
 6. **-out** or **--outs** specifies the name of the name of the final report. By default the name is **merging_diagnose.txt**
 
 
-Run SCALT_merge.py
+Run SCARLET_merge.py
 ==================================
 
-SCALT_merge.py is quite straightforward given that only the path to the **custom** directory must be specified. 
+SCARLET_merge.py is quite straightforward given that only the path to the **custom** directory must be specified. 
 
 Leaving default parameters, the basic comand appears as follows:
 
 ::
 
-   python3 SCALT_merge.py custom
+   python3 SCARLET_merge.py custom
 
 By default, it is assumed that 100 bootstrap samples are available and that each cell type specific list of genes in the custom directory has 100 genes. Moreover, ensembl ids are assumed and the final name of the report with be **mutual_information_diagnose.txt**.
 
@@ -46,63 +46,63 @@ If the **gene symbol** is present in the cell type specific lists of genes, the 
 
 ::
 
-   python3 SCALT_merge.py custom -Notation gene_symbol
+   python3 SCARLET_merge.py custom -Notation gene_symbol
 
 Or:
 
 ::
 
-   python3 SCALT_merge.py custom --Notation gene_symbol
+   python3 SCARLET_merge.py custom --Notation gene_symbol
 
 The number of boostrap samples available can be changed in any moment specifying the number in the proper parameter:
 
 ::
 
-   python3 SCALT_merge.py custom -Boo 80
+   python3 SCARLET_merge.py custom -Boo 80
 
 Or:
 
 ::
 
-   python3 SCALT_merge.py custom --Boo 80
+   python3 SCARLET_merge.py custom --Boo 80
 
 
 The same process can be translated for the number of genes available in the cell type defyning lists:
 
 ::
 
-   python3 SCALT_merge.py custom -Genes 75
+   python3 SCARLET_merge.py custom -Genes 75
 
 Or:
 
 ::
 
-   python3 SCALT_merge.py custom --Genes 75
+   python3 SCARLET_merge.py custom --Genes 75
 
 The name of the output report can be changed adjusting the proper parameter:
 
 ::
 
-   python3 SCALT_merge.py custom -out report_one.txt
+   python3 SCARLET_merge.py custom -out report_one.txt
 
 Or:
 
 ::
 
-   python3 SCALT_merge.py custom --out report_one.txt
+   python3 SCARLET_merge.py custom --out report_one.txt
 
 
 To conclude, the different parameters can be modified in a unique call:
 
 ::
 
-   python3 SCALT_merge.py custom -Notation gene_symbol -Boo 80 -Genes 75 -out report_one.txt
+   python3 SCARLET_merge.py custom -Notation gene_symbol -Boo 80 -Genes 75 -out report_one.txt
 
 Or:
 
 ::
 
-   python3 SCALT_merge.py custom --Notation gene_symbol --Boo 80 --Genes 75 --out report_one.txt
+   python3 SCARLET_merge.py custom --Notation gene_symbol --Boo 80 --Genes 75 --out report_one.txt
 
 The order of parameters is irrelevant.
 
@@ -112,7 +112,7 @@ Outputs
 The tool returns two outputs:
 
 1. a report (default name merging_diagnose.txt) in **.txt** format highlighting which cell types should be merged in a unique one with the corresponding similarity values expressed in terms of mutual information;
-2. a directory (default name mi_merge_results) grouping all the additional results and metadata deriving from SCALT_merge.py
+2. a directory (default name mi_merge_results) grouping all the additional results and metadata deriving from SCARLET_merge.py
 
 The directory contains the following files:
 
