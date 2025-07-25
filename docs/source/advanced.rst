@@ -1,12 +1,12 @@
 Advanced utilities
 ==================
 
-SCALT presents other utilities behyond single cell classification:
+SCARLET presents other utilities behyond single cell classification:
 
-1. starting from a read counts matrix from single cell RNA sequencing and a corresponding cell annotation table, SCALT builds a series of equally-sized cell type specific lists of genes, one per each cell type present in the annotation, in a deterministic fashion;
-2. SCALT ascertain the reliability of the cell type classification used in the previous step quantifying the similariy among the generated lists exploting a method based on **mutual information** that, eventually, underlines which cell types should be organized in a unique operatively-defined cell type.
+1. starting from a read counts matrix from single cell RNA sequencing and a corresponding cell annotation table, SCARLET builds a series of equally-sized cell type specific lists of genes, one per each cell type present in the annotation, in a deterministic fashion;
+2. SCARLET ascertain the reliability of the cell type classification used in the previous step quantifying the similariy among the generated lists exploting a method based on **mutual information** that, eventually, underlines which cell types should be organized in a unique operatively-defined cell type.
 
-More details are availble in the manuscript of SCALT.
+More details are availble in the manuscript of SCARLET.
 
 
 Workflows
@@ -15,9 +15,9 @@ Workflows
 Build the cell-type specific lists of genes starting from annotated data
 ----------------------------------------------------------------------------
 
-The steps and the relative programs of SCALT are summarized in the following workflow: 
+The steps and the relative programs of SCARLET are summarized in the following workflow: 
 
-.. figure:: pictures/SCALT_listbuildAnno.png
+.. figure:: pictures/SCARLET_listbuildAnno.png
    :align: center
    :scale: 40% 
 
@@ -34,13 +34,13 @@ Please, follow the next sections of the manual for instructions and tips.
 Employ mutual information to quantify cell type similarity
 ----------------------------------------------------------------------------
 
-The steps and the relative programs of SCALT are summarized in the following workflow: 
+The steps and the relative programs of SCARLET are summarized in the following workflow: 
 
-.. figure:: pictures/SCALT_merge.png
+.. figure:: pictures/SCARLET_merge.png
    :align: center
    :scale: 40%
 
-1. **bootstrap_lists.py** estimates the probability of finding each gene across a number of bootstrap lists of the same cell type deriving from different number of bootstrap samples. The bootstrap samples are those originated from the **SCALT_annotationListBuilder.py** utility of SCALT. Moreover, it computes the mutual information between each pair of cell type specific list of the same type deriving from each bootstrap sample, excluding self-comparison;
+1. **bootstrap_lists.py** estimates the probability of finding each gene across a number of bootstrap lists of the same cell type deriving from different number of bootstrap samples. The bootstrap samples are those originated from the **SCARLET_annotationListBuilder.py** utility of SCARLET. Moreover, it computes the mutual information between each pair of cell type specific list of the same type deriving from each bootstrap sample, excluding self-comparison;
 2. **threshold_estimate_mi.R** estimates the threshold of mutual information above which two lists should be merged in a unique one. Specifically, the threshold is the minimum mutual information value observed between two bootstrap lists of the same type;
 3. **merger.py** calculates the mutual information between the cell type specific lists of genes in the **custom** input directory using bootstrap probabilies and mutual information threholds derived from the previous steps. The final output is a report highlighting which cell types should be considered as a unique one and the relative similarity measurements expressed in terms of mutual information.
 
