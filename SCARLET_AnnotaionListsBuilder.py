@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 
 start_time = datetime.now()
 
-''' The function lists_generator(counts,anno,boo,cells,genes,notation,cpus) is resposible of calling the utility of SCALT aimed to generate the custom collection 
+''' The function lists_generator(counts,anno,boo,cells,genes,notation,cpus) is resposible of calling the utility of SCARLET aimed to generate the custom collection 
     of cell-type specific lists of genes given the row counts table and the annotation of each cell. The function requires the following inputs: the row counts table;
     the table with one column reporting the annotation of each cell present in the counts; the number of boostraps sample; the number of cells to sample per each cell
     type during the boostrap process; the number of genes to include in the final cell-type specific lists; the kind of gene notation; the number of processors used.'''
@@ -131,7 +131,7 @@ def lists_generator(counts,anno,boo,cells,genes,notation,cpus):
     except:
         print("Error: cannot run the scripts/customLists_refinement.py")
 
-    #### Check if the custom lists are similar to those available in SCALT using a mutual information strategy ####
+    #### Check if the custom lists are similar to those available in SCARLET using a mutual information strategy ####
 
     try:
         os.system("python3 scripts/mutual_information_test.py config/parametersForMIcalculation.json "+notation+" custom")
@@ -150,7 +150,7 @@ def lists_generator(counts,anno,boo,cells,genes,notation,cpus):
         print("Error: cannot move intermediate files in the ./AnnolistsBuilder_results directory")
 
 ''' Positional arguments '''
-parser = argparse.ArgumentParser(description='SCALT: build the cell-type specific lists of genes starting from a counts matrix and correspoding annotation of each cell.')
+parser = argparse.ArgumentParser(description='SCARLET: build the cell-type specific lists of genes starting from a counts matrix and correspoding annotation of each cell.')
 parser.add_argument("Counts",metavar="Counts",help="Sample counts")
 parser.add_argument("Anno",metavar="Anno",help="Annotation of each cell present in the sample. It must be a tab separated file (.tsv) having N rows equal to the number of columns in the counts matrix (cells) and 1 column reporting the correspoding annotation.")
 ''' Optional arguments '''
