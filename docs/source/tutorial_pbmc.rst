@@ -51,6 +51,6 @@ A piece of the table reporting the results for  10 cells of the PBMCs sample is 
 
 1. **Cell_ID** is the barcode of each cell;
 2. **Prim.Lab** indicates which was the most significant annotation according to SCARLET. When none of the lists recapitulates the cell type, the annotation found in this column is **unclassified**;
-3. **Multi_label** notifies when a cell is annotated as **multiassigned** or not. Three cases are possible. If the cell is multiassigned, the corresponding value in this column will be **YES**. Wherever the cell is univocally assigned, the value will be **NO**. Finally, if the cell is unclassified, its value in this column will be **NA**;
+3. **Multi_lab** notifies when a cell is annotated as **multiassigned** or not. Three cases are possible. If the cell is multiassigned, the corresponding value in this column will be **YES**. Wherever the cell is univocally assigned, the value will be **NO**. Finally, if the cell is unclassified, its value in this column will be **NA**;
 4. **Alt.Lab** shows the significant possible annotations when a cell is multiassigned. In the other cases, the value is NA.
 
