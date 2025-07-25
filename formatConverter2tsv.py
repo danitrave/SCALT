@@ -26,7 +26,7 @@ def converter(f):
             pass 
 
 ''' Positional arguments '''
-parser = argparse.ArgumentParser(description='SCALT: auxiliary program for file format conversion. The program is able to convert files in ".h5ad", ".rds" and ".RData" to ".tsv" format.')
+parser = argparse.ArgumentParser(description='SCARLET: auxiliary program for file format conversion. The program is able to convert files in ".h5ad", ".rds" and ".RData" to ".tsv" format.')
 parser.add_argument("Counts",metavar="Sample",help="Sample counts")
 
 args = vars(parser.parse_args())
