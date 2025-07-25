@@ -12,7 +12,7 @@ Once obtained a file in tsv format, the only command needed to run SCARLET is th
 
 The output consists in a series of files and metadata table that should provide a complete picture of the composition of cells present in the sample according to SCARLET.
 SCARLET generates two outputs: a report in HTML format and a tabular file. The peculiarity of the report is that it is interactive and allows a user to play around the results.
-The report generated from the Liu dataset can be visualized at the following `link <https://danitrave.github.io/SCALT/tutorial_dataset/Liu_PBMCs_report.html>`_. 
+The report generated from the Liu dataset can be visualized at the following `link <https://danitrave.github.io/SCARLET/tutorial_dataset/Liu_PBMCs_report.html>`_. 
 Please, follow step by step the following paragraphs to have a clear description of each plot.
 
 .. note::
