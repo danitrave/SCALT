@@ -45,7 +45,7 @@ Cell annotation table
 The second major output of SCARLET is a tabular file in tsv format highlighting the classification outcome assigned to each cell by the tool. 
 A piece of the table reporting the results for  10 cells of the PBMCs sample is reported below.
 
-.. figure:: pictures/tabella.pdf
+.. figure:: pictures/tabella.png
    :align: center
    :scale: 50%
 
