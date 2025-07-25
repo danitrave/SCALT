@@ -1,7 +1,7 @@
 Inputs formats
 ==============
 
-SCALT_AnnotaionListsBuilder.py demands two inputs:
+SCARLET_AnnotaionListsBuilder.py demands two inputs:
 
 1. a scRNA seq raw counts matrix. The matrix must be in **.tsv** extension;
 2. a table having **one column** reporting the annotation of each cell present in the counts.
@@ -9,7 +9,7 @@ SCALT_AnnotaionListsBuilder.py demands two inputs:
 The counts matrix must present genes on the rows and cells on the columns. The first row of the matrix must contain the ids of each cell while the first column must provide the gene ids written either as **gene symbol** or **ensembl id**. 
 There must be a 1:1 correspondence between the columns count matrix and the entries of the annotation.
 
-To see an example of the table, see the section **SCALT: CLASSIFICATION - Inputs and Outputs** of this manual.
+To see an example of the table, see the section **SCARLET: CLASSIFICATION - Inputs and Outputs** of this manual.
 
 An example of the annotation table is reported here:
 
@@ -29,23 +29,23 @@ An example of the annotation table is reported here:
 Parameters
 ==========
 
-SCALT_AnnotaionListsBuilder.py takes the advantage of a collection of both positional arguments and parameters that can visualized typing the following command:
+SCARLET_AnnotaionListsBuilder.py takes the advantage of a collection of both positional arguments and parameters that can visualized typing the following command:
 
 :: 
 
-  python3 SCALT_AnnotaionListsBuilder.py -h
+  python3 SCARLET_AnnotaionListsBuilder.py -h
 
 Or:
 
 :: 
 
-  python3 SCALT_AnnotaionListsBuilder.py --help
+  python3 SCARLET_AnnotaionListsBuilder.py --help
 
 The documentation should appear as follows:
 
 ::
 
-   usage: SCALT_AnnotaionListsBuilder.py [-h] [-Boo --Boo] [-Cells --Cells]
+   usage: SCARLET_AnnotaionListsBuilder.py [-h] [-Boo --Boo] [-Cells --Cells]
                                       [-Genes --Genes] [-Notation --Notation]
                                       [-CPUs --CPUs]
                                       Sample Annotation
@@ -61,16 +61,16 @@ The documentation should appear as follows:
 7. **-CPUs** or **--CPUs** indicates the number of processors to use. By default, **1** is used.
 
 
-Run SCALT_AnnotaionListsBuilder.py
+Run SCARLET_AnnotaionListsBuilder.py
 ==================================
 
-SCALT_AnnotaionListsBuilder.py is quite straightforward since it requires the counts table and the annotation table as inputs. 
+SCARLET_AnnotaionListsBuilder.py is quite straightforward since it requires the counts table and the annotation table as inputs. 
 
 Leaving default parameters, the basic comand appears as follows:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv
 
 By default, it is assumed that the counts have the ensembl id for genes notation. 100 boostrap samples are generated in which 100 cells will be randomly sampled per each cell type. At the end, the final lists will contain 100 genes each. The number of processors used is 1.
 
@@ -78,61 +78,61 @@ If the **gene symbol** is used in the counts matrix, the notation must be specif
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Notation gene_symbol
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Notation gene_symbol
 
 Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Notation gene_symbol
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Notation gene_symbol
 
 The number of boostrap samples can be changed in any moment specifying the number in the proper parameter:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Boo 80
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Boo 80
 
 Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Boo 80
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Boo 80
 
 The number of cell per cell type included in each boostrap sample can be modified making usage of the proper parameter:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Cells 50
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Cells 50
 
 Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Cells 50
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Cells 50
 
 The same logic for the number of genes that will be included in the final lists of genes:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Genes 75
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Genes 75
 
 Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Genes 75
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Genes 75
 
 In addition, the computational time can be reduced if the number of processors is increased as reported:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -CPUs 4
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -CPUs 4
 
 Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --CPUs 4
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --CPUs 4
 
 Make sure to have available the number of desidered processors in your machine.
 
@@ -140,13 +140,13 @@ To conclude, the different parameters can be modified in a unique call:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Notation gene_symbol -Boo 80 -Cells 50 -Genes 75 -CPUs 4
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv -Notation gene_symbol -Boo 80 -Cells 50 -Genes 75 -CPUs 4
 
 Or:
 
 ::
 
-   python3 SCALT_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Notation gene_symbol --Boostraps 80 --Cells 50 --Genes 75 --CPUs 4
+   python3 SCARLET_AnnotaionListsBuilder.py read_counts.tsv annotation.tsv --Notation gene_symbol --Boostraps 80 --Cells 50 --Genes 75 --CPUs 4
 
 The order of parameters is irrelevant.
 
