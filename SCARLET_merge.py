@@ -51,7 +51,7 @@ def merge_run(D,notation,genes,boos,out):
         print("Error: unable to move all temporary files in the directory mi_merge_results/")
 
 ''' Positional arguments '''
-parser = argparse.ArgumentParser(description='''SCALT: Single Cell Annotation Likelihood Tool. Merge lists by mutual information.''')
+parser = argparse.ArgumentParser(description='''SCARLET: Single Cell Annotation Likelihood Tool. Merge lists by mutual information.''')
 parser.add_argument("Dir",metavar="Lists",help="Path of the cell type specific lists of genes to be merged by mutual information.")
 
 ''' Optional arguments '''
