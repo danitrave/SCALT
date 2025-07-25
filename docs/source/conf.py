@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'SCALT'
+project = 'SCARLET'
 copyright = '2025 Daniele Traversa'
 author = 'Daniele Traversa'
 
