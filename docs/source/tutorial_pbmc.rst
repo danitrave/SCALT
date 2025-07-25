@@ -47,7 +47,7 @@ A piece of the table reporting the results for  10 cells of the PBMCs sample is 
 
 .. figure:: pictures/tabella.png
    :align: center
-   :scale: 40%
+   :scale: 30%
 
 1. **Cell_ID** is the barcode of each cell;
 2. **Prim.Lab** indicates which was the most significant annotation according to SCARLET. When none of the lists recapitulates the cell type, the annotation found in this column is **unclassified**;
