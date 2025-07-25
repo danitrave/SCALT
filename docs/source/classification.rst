@@ -1,7 +1,7 @@
 Inputs and Outputs
 ================
 
-The input of SCALT is a matrix of raw counts from single cell RNA sequencing. The matrix must be in **.tsv** extension reporting:
+The input of SCARLET is a matrix of raw counts from single cell RNA sequencing. The matrix must be in **.tsv** extension reporting:
 
 1. genes on the rows;
 2. cells on the columns.
@@ -157,32 +157,32 @@ The directory contains a series of files which are produced automatically during
 
 1. **_adj_p_values.tsv**. Tabular file reporting a collection of p-values per each cell. Each p-value indicates to a likehood test. Therefore, the number corresponds to the number of cell types tested;
 2. **_adj_deltas.tsv**. Tabular file reporting a series of likelihood differences between the cell type specific model and the mean cell type. The number corresponds to the number of cell types tested;
-3. **_adj.tsv** file. Counts table after input set-up performed by SCALT.py by default;
+3. **_adj.tsv** file. Counts table after input set-up performed by SCARLET.py by default;
 4. **_adj_genesExpressed_filter.tsv** file. Tabular file reporting either **PASS** or **EXCLUDE** if the cell expresses at least the minimum number of genes set in the -Min (or --Min) parameter or not;
 5. **_barplot_cellTypesAboundance.html**, **_barplot_survivedCells.html**, **_UMAP_2D.html**, **_UMAP_2D_ONTO.html** and **_UMAP_3D.html**. Collection of plots visualized in the report file.
 6. **_umap_2d_coords.tsv** and **_umap_3d_coords.tsv**. Tabular files reporting respectively the coordinates of the 2-dimensional and 3-dimensional UMAPs present in the report file.
 
 
-SCALT parameters
+SCARLET parameters
 ================
 
-SCALT.py makes usage of a collection of both positional arguments and parameters that can visualized typing the following command:
+SCARLET.py makes usage of a collection of both positional arguments and parameters that can visualized typing the following command:
 
 :: 
 
-  python3 SCALT.py -h
+  python3 SCARLET.py -h
 
 Or:
 
 ::
 
-  python3 SCALT --help
+  python3 SCARLET --help
 
 The documentation should appear as follows:
 
 ::
 
-  usage: SCALT.py [-h] [-Min --Min] [-Notation --Notation]
+  usage: SCARLET.py [-h] [-Min --Min] [-Notation --Notation]
              [-Types --Types] [-CPUs --CPUs] [-pvalue --pvalue]
                [-out --out] Sample
 
@@ -195,16 +195,16 @@ The documentation should appear as follows:
 7. **-pvalue** or **--pvalue** indicates the significance level corresponding to the likelihood difference that there must be between the most signficant classification and the other pluasible ones in order to unequivocally annotate a cell to a type. If the likelihood difference is not reached, the cell will be classified as **multiassigned**. By default, the p-value threshold is **0.05** and corresponds to a likelihood difference of 6. Set the threshold to **0.01** to increase the stringency of the likelihood difference up to 9;
 8. **-out** or **--out** is the name referring to the final output files. By default is **output**.
 
-Run SCALT.py
+Run SCARLET.py
 =========
 
-SCALT.py is quite straightforward since it requires just the counts table as positional input. 
+SCARLET.py is quite straightforward since it requires just the counts table as positional input. 
 
 Leaving default parameters, the basic command appears as follows:
 
 ::
 
-   python3 SCALT.py read_counts.tsv
+   python3 SCARLET.py read_counts.tsv
 
 By default, the ensembl ids are used. 
 
@@ -212,37 +212,37 @@ If the **gene symbol** is used in the counts matrix, the notation must be specif
 
 ::
 
-   python3 SCALT.py read_counts.tsv -Notation gene_symbol
+   python3 SCARLET.py read_counts.tsv -Notation gene_symbol
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --Notation gene_symbol
+   python3 SCARLET.py read_counts.tsv --Notation gene_symbol
 
-By default, a cell is classified if it expresses at least **250** genes. Managing the SCALT.py parameters, this threshold che be modified with any number as follows:
+By default, a cell is classified if it expresses at least **250** genes. Managing the SCARLET.py parameters, this threshold che be modified with any number as follows:
 
 ::
 
-   python3 SCALT.py read_counts.tsv -Min 500
+   python3 SCARLET.py read_counts.tsv -Min 500
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --Min 500
+   python3 SCARLET.py read_counts.tsv --Min 500
 
 In addition, the computational time can be reduced if the number of processors is increased as reported:
 
 ::
 
-   python3 SCALT.py read_counts.tsv -CPUs 4
+   python3 SCARLET.py read_counts.tsv -CPUs 4
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --CPUs 4
+   python3 SCARLET.py read_counts.tsv --CPUs 4
 
 Make sure to have available the number of desidered processors on your machine.
 
@@ -250,37 +250,37 @@ The significance threshold can be modified in the following way:
 
 ::
 
-   python3 SCALT.py read_counts.tsv -pvalue 0.01
+   python3 SCARLET.py read_counts.tsv -pvalue 0.01
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --pvalue 0.01
+   python3 SCARLET.py read_counts.tsv --pvalue 0.01
 
 Finally, the name present in the output files can be changed as follows:
 
 ::
 
-   python3 SCALT.py read_counts.tsv -out my_output
+   python3 SCARLET.py read_counts.tsv -out my_output
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --out my_output
+   python3 SCARLET.py read_counts.tsv --out my_output
 
 Adjusting the parameters in a unique call, the final command should appear as follows:
 
 ::
 
-   python3 SCALT.py read_counts.tsv -Notation gene_symbol -Min 500 -CPUs 4 -pvalue 0.01 -out my_output
+   python3 SCARLET.py read_counts.tsv -Notation gene_symbol -Min 500 -CPUs 4 -pvalue 0.01 -out my_output
 
 Or:
 
 ::
 
-   python3 SCALT.py read_counts.tsv --Notation gene_symbol --Threshold 500 --CPUs 4 --pvalue 0.01 --out my_output
+   python3 SCARLET.py read_counts.tsv --Notation gene_symbol --Threshold 500 --CPUs 4 --pvalue 0.01 --out my_output
 
 The order of parameters is irrelevant.
 
@@ -302,13 +302,13 @@ The report is a file in html format composed of a collection of plots summarizin
 Workflow 
 ========
 
-Running SCALT.py, the following workflow is performed:
+Running SCARLET.py, the following workflow is performed:
 
-.. figure:: pictures/SCALT_workflow.png
+.. figure:: pictures/SCARLET_workflow.png
    :align: center
    :scale: 50%
 
-1. **inputPreparation.py** is a python script that adjustes the input counts table in order to be properly analyzed by SCALT.py;
+1. **inputPreparation.py** is a python script that adjustes the input counts table in order to be properly analyzed by SCARLET.py;
 2. **likelihood_ratio_test.py** is the python script that performs the actual likelihood test;
 3. **reportGenerator.py** is the python script that creates the final report.
 
