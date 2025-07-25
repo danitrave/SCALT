@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 
 start_time = datetime.now()
 
-""" The function application_run(counts,gene_threshold,notation,dirCellTypes,cpus) is resposible of running the main program of SCALT which is the single cell
+""" The function application_run(counts,gene_threshold,notation,dirCellTypes,cpus) is resposible of running the main program of SCARLET which is the single cell
     classification based on a likelihood ratio method. The function requires the following inputs: the raw data counts table; the minimum number of genes that a
     cell must presnt to be classifed; the kind of gene notation used; the cell types used in the annotation process; the number of processors used. """
 
@@ -56,7 +56,7 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
     try:
         os.system("python3 scripts/likelihood_ratio_test.py "+counts+" "+gene_threshold+" "+notation+" "+dirCellTypes+" "+cpus)
     except:
-        print("Error: Run failed. SCALT could not run the likelihood annotation step!")
+        print("Error: Run failed. SCARLET could not run the likelihood annotation step!")
         return "Execution halted!"    
 
     #### Generate the final report ####
@@ -87,9 +87,9 @@ def application_run(counts,gene_threshold,notation,dirCellTypes,cpus,pvalue,out_
     return "Success! Execution completed!"
 
 ''' Positional arguments '''
-parser = argparse.ArgumentParser(description='''SCALT: Single Cell Annotation Likelihood Tool. SCALT introduces a paradigm-shift for the analysis of scRNAseq data where. 
+parser = argparse.ArgumentParser(description='''SCARLET: Single Cell Annotation Likelihood Tool. SCARLET introduces a paradigm-shift for the analysis of scRNAseq data where. 
 								cells are annotated at individual level, by using a simple but elegant method based on likelihood, without the need
-								for clustering, dimensionality reduction or manual annotation. Currently, SCALT leverages a collection of 293 lists of cell-type specific genes, 
+								for clustering, dimensionality reduction or manual annotation. Currently, SCARLET leverages a collection of 293 lists of cell-type specific genes, 
 								operatively defined by an by extensive re-analysis of comprehensive and expert curated catalogues (HPA and DISCO)''')
 parser.add_argument("Counts",metavar="Sample",help="Sample counts")     
 
