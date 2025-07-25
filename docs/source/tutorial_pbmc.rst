@@ -8,7 +8,7 @@ Once obtained a file in tsv format, the only command needed to run SCARLET is th
 
 ::
 
-   python3 SCARLET.py countsPBMC3K.tsv -Notation gene_symbol  
+   python3 SCARLET.py Liu_PBMCs.tsv -Notation gene_symbol  
 
 The output consists in a series of files and metadata table that should provide a complete picture of the composition of cells present in the sample according to SCARLET.
 SCARLET generates two outputs: a report in HTML format and a tabular file. The peculiarity of the report is that it is interactive and allows a user to play around the results.
